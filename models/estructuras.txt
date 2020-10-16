@@ -1,0 +1,57 @@
+Estructura Empresa: /admin/addCompany --> /admin/companies
+{
+    nombreEmpresa: String,
+    razonSocial:String,
+    CUIT:String,
+    objetoResponsable:[{
+        dni:String,
+        nombre:String,
+        apellido:String,
+        telefono:String
+    }]
+} --> HECHA
+
+Estructura Soporte: --> /admin/issues
+{
+    idEncuesta:int,
+    descripcionProblema:int
+}
+
+Estructura Lanzamiento Encuesta:
+{
+    idEncuesta:int,
+    responsable:[{
+        objetoResponsable:          --> Este responsable seria los listaEmpresasLanzadas no?
+        dni:String,
+        nombre:String,
+        apellido:String,
+        telefono:String
+    }   
+    }],
+    fecha:Date,
+    fechaVencimiento:Date,
+    listaEmpresasLanzadas:[{empresa1},{empresa2}]
+}
+
+Estructura Notificaciones:
+
+notificaciones:{
+    tipo:String,
+    mensaje:Stirng,
+    idUsuario:int
+} --> Hecharda
+
+DASHBOARD: --> /admin/dashboard
+    * Muestra cada encuesta lanzada
+    * Tienen que estar los datos de cuantas preguntas respondio c/empresa.
+    * Expongo N vinculos de estadistica por N encuesta. N->nombreEmpresa
+    * Actualizar constantemente mientras las empresas van contestando.
+    * Retirar la empresa.
+
+
+LANZAR ENCUESTA:  /admin/poll
+
+    * Agregar N encuestas segun N sea la cantidad de encuestas disponibles en la API que nos exponen los de crearEncuesta
+    * Mostrasr empresas --> Muestra todas las que estan dentro de la BDD
+    * Lanzar encuesta --> Lanza la encuesta a cada empresa relacionada.
+
