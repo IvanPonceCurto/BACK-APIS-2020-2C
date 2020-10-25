@@ -14,3 +14,8 @@ ProblemaSchema.plugin(mongoosePaginacion)
 const Problema= moongose.model('Problema',ProblemaSchema)
 
 module.exports=Problema; //Defino que exporto la empresa
+
+//PROBLEMAS SE PODRIA HACER
+
+// ¿Quien recibe los problemas del observatorio? --> 
+

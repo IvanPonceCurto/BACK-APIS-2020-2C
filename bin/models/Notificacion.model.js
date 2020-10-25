@@ -12,3 +12,5 @@ moongose.plugin(moongoPagination)
 const Notificacion=moongose.model('Notificacion',NotificacionSchema);
 
 module.exports('Notificacion')
+
+//Ver lo del Socket.io

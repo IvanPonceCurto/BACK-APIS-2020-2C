@@ -1,0 +1,33 @@
+COSAS QUE PODEMOS HACER:
+    -NOTIFICACIONES
+    -ELIMINAR EMPRESA DE LA ENCUESTA
+    -CREAR N CIRCULOS COMO EMPRESAS SEAN.
+    -EXPONER NUESTRO ENDPOINT 
+    -AGREGAR A LA ENCUESTA UNA EMPRESA
+    -NO PODEMOS CATCHEAR LOS DATOS
+    -NO PODEMOS ACTUALIZAR LOS DATOS DE EMPRESAS MIENTRAS VAN CONTESTANDO.
+    -EXPONER TODAS LAS ENCUESTAS DISPONIBLES QUE HAYA.
+    -GET DE LA INFORMACION DE LOS USUARIOS EMPRESAS.
+
+
+SOCKET:
+
+Son buenos porque nos permiten comunicar un server con una web, y de esa 
+manera que no s e tenga que estar preguntando todo el rato, sino q que en 
+la que encuentra un cambio, lo avisa y se triggerea algua accion.
+
+Api Rest --> Como sabemos, escucha rutas, que las definimos  nosotros.
+
+Con .on() lo que hacemos es que le decimos que escuche un mensaje que puede llegar desde el navegador
+o desde otro servidor.
+
+En este caso, le pasamos connection, entonces cuando reciba el mensaje connection, va a hacer lo que le digamos
+en esa funcion.
+
+Esa funcion va  a recibir un SOCKET como parametro, que lo tiene que 
+
+Permite mantener una comunicacion activa-activa, y el server nos puede mandar informacion constante de lo que se quire hacer.
+
+Podemos saber cuando un usuario se desconecta, o uno se conecta, o se vuelve a conectar.
+
+

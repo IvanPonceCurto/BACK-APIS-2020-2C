@@ -1,9 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Empresa = require('../models/Empresa.model');
-var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
 var {v4:uuidv4}=require('uuid')
-// Saving the context of this module inside the _the variable
+
 _this = this
 
 // Async function to get the Empresa List
