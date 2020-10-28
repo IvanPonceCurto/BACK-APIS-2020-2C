@@ -3,8 +3,8 @@ var mongoosePaginacion=require('mongoose-paginate')
 
 var ProblemaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
-    idProblema:Int16Array,
-    idEncuesta:Int16Array,
+    idProblema:Number,
+    idEncuesta:Number,
     descripcinoProblema:String
 
 })

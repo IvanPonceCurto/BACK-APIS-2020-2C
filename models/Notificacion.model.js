@@ -4,7 +4,7 @@ var moongoPagination=require('mongoose-paginate')
 var NotificacionSchema= new moongose.Schema({
     tipo:String,
     mensaje:String,
-    idUsuario:Int16Array
+    idUsuario:Number
 })
 
 moongose.plugin(moongoPagination)

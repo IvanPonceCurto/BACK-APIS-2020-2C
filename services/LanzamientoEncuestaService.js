@@ -9,51 +9,91 @@ _this=this
 
 exports.postEncuestasLanzamiento=async function(encuesta){
     var lanzar=new LanzamientoEncuesta({
+        idUsuario:encuesta.idUsuario,
         idEncuesta:encuesta.idEncuesta,
         responsable:encuesta.responsable,
-        date:Date.now(),
-        fechaVencimiento:Date,
+        fecha:Date.now(),
+        fechaVencimiento:encuesta.fechaVencimiento,
         listaEmpresasLanzadas:encuesta.listaEmpresasLanzadas
     })
     try{
         var encuestaTraida= await lanzar.save();
         console.log("Encuesta lanzada correctamente!");
+        return encuestaTraida;
     }catch(e){
         throw new Error("Error al lanzar las encuestas")
     }
 }
 
-exports.getEncuestasLanzadas=async function(query,page,limit,idUsuario){
+exports.getEncuestasLanzadas=async function(query){
     //Filtro para que solo traiga las que lanzo el usuario del obs.pyme .
     //Nos podria llegar por header.
-    var guardarIdUsuario=idUsuario;
-    var pagina= page ? page:1
-    var limite=limit ? limit:5
+    var page=1;
+    var limit=5;    
     var options={
-        pagina,limite,guardarIdUsuario
+        page,limit
     }
-
-    try{
-        var encuestasLanzadas=await LanzamientoEncuesta.paginate(query,options)
-        //VOLVER A VER COMO FUNCIONA EL OPTINOS PARA EL FILTRO.
+    try{   
+        var encuestasLanzadas=await LanzamientoEncuesta.findOne({
+            idUsuario:query
+            //User.service tiene lo del findOne
+        });
+        return encuestasLanzadas
     }catch(e){
         throw new Error("Error al traernos las encuestas")
     }
 }
 
-exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta){
-    var id=lanzamientoEncuesta.idEncuesta;
-    try{
-        var oldEncuesta=await LanzamientoEncuesta.findById(id)
-        if(!oldEncuesta){
-            //Sino existe el objeto encuesta ese en cuestion
-            return undefined;
-        }
-        oldEncuesta.listaEmpresasLanzadas=lanzamientoEncuesta.listaEmpresasLanzadas?lanzamientoEncuesta.listaEmpresasLanzadas:oldEncuesta.listaEmpresasLanzadas;
-        //Agregar o sacar un empresa
-        oldEncuesta.fechaVencimiento=lanzamientoEncuesta.fechaVencimiento?lanzamientoEncuesta.fechaVencimiento:oldEncuesta.fechaVencimiento 
-        //actualiza la fecha de vencimiento, PREGUNTAR SI SE PUEDE ACTUALIZAR UN PAR DE DIAS MAS.
+exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta,flag){
+    var id=lanzamientoEncuesta.idEncuestaLanzada;
+    var listaEmpresasNuevas=lanzamientoEncuesta.listaEmpresasNuevas;
+    var listaEmpresasBorrar=lanzamientoEncuesta.listaEmpresasBorrar;
 
+    console.log(id,listaEmpresasNuevas,listaEmpresasBorrar)
+
+    const miConjuntoDeEmpresas=new Set();
+
+   
+    try{
+        console.log("El flag que usa es: " +flag)
+        var oldEncuesta=await LanzamientoEncuesta.findById(id)
+
+        console.log(oldEncuesta)
+
+        oldEncuesta.listaEmpresasLanzadas.map(element=>{
+            miConjuntoDeEmpresas.add(element);
+        })
+
+
+        if(flag==="1"){
+            //Agrego las encuestas a la empresa
+            console.log("Entro al del add")
+            listaEmpresasNuevas.map((element)=>{
+                miConjuntoDeEmpresas.add(element)
+            })        
+            oldEncuesta.listaEmpresasLanzadas=Array.from(miConjuntoDeEmpresas)
+        }
+        if(flag==="2"){
+            console.log("Entro al del delete")
+            var listaNueva=[]
+            for (let i = 0; i < oldEncuesta.listaEmpresasLanzadas.length; i++) {
+                for (let j = 0; j < listaEmpresasBorrar.length; j++) {
+                    if(oldEncuesta.listaEmpresasLanzadas[i].nombre===listaEmpresasBorrar[j].nombre){
+                        oldEncuesta.listaEmpresasLanzadas[i]="";
+                        console.log("borro esto padreee")
+                    }
+                }
+                if(oldEncuesta.listaEmpresasLanzadas[i]!=""){
+                    listaNueva.push(oldEncuesta.listaEmpresasLanzadas[i]);
+                }
+                
+            }
+            
+            
+            
+            oldEncuesta.listaEmpresasLanzadas=listaNueva;
+        }
+        
         var guardar=await oldEncuesta.save()
         return guardar;
        
@@ -63,29 +103,13 @@ exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta){
     }
 }
 
-exports.agregarEmpresaEncuesta=async function(idEmpresa){
-    var id=idEmpresa.idEmpresa
-    try{   
-        //add
-    }catch(e){
 
-    }
-
-}
-exports.eliminarEmpresaEncuesta=async function(idEmpresa){
-    var id=idEmpresa.idEmpresa
-    try{   
-        //delete
-    }catch(e){
-
-    }
-
-}
 
 exports.deleteLanzamientoEmpresas= async function(encuestasLanzadas){
     try{
-        var id=encuestasLanzadas.idEncuesta
-        //LanzamientoEncuesta.deleteOne(LanzamientoEncuesta.findById(id));
+        var id=encuestasLanzadas
+        console.log("La encuesta que va a borrar es:" ,id)
+        
         var borrar=await LanzamientoEncuesta.remove({
             _id:id
         })

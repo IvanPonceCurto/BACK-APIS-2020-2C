@@ -1,7 +1,6 @@
 const { reject } = require('bluebird');
 const fs=require('fs')
 
-let tipos=["text","select","choice","file","grouped","number"]
 
  
  
@@ -22,9 +21,10 @@ const hacerPreguntas=(tipoPregunta,listaPropiedades)=>{
                     super(type,title,value,mandatory)
                     this.description=description;
                     this.options=options;
-            }
-        }
+            }}
             return new SelectQuestion(); 
+            break;   
+        
     case tipoPregunta==="choice":
         class ChoiceQuestion extends Preguntas{
             constructor(type,title,value,mandatory,options){
@@ -78,16 +78,16 @@ class Preguntas{
     }
 }
 class objectToSave{
-    static variable;
-    constructor(id,userId,name,description,status,sections){
+    static sections;
+    constructor(id,userId,name,description,status,listaPreguntas){
         this.id=id;
         this.userId=userId;
         this.name=name;
         this.description=description;
         this.status=status;
-        this.variable=[];
-        sections.forEach(element => {
-            this.variable.push(element)
+        this.sections=[];
+        listaPreguntas.forEach(element => {
+            this.sections.push(element)
         });
     
         
@@ -99,12 +99,14 @@ class objectToSave{
 
 const devolverJSON=()=>{
     let listaPreguntas=[];
+    let listaPreguntasTotales=[];
     let tipoText=new textQuestion("TEXT","Es acaso el Fares el peronista N°1?","SEEE PADREEE",true);
-    let preguntas=new Preguntas(JSON.stringify(tipoText))
-    listaPreguntas.push(preguntas)
+    //let preguntas=new Preguntas(JSON.stringify(tipoText))
+    listaPreguntas.push(JSON.stringify(tipoText))
     let variable=new objectToSave("5","ivanPonce","Cuestionario","Descripcion","completa2",listaPreguntas)
+    listaPreguntasTotales.push(variable)
     //console.log(variable)
-    return variable;
+    return listaPreguntasTotales;
 }
 
 
