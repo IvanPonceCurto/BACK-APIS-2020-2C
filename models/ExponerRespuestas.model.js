@@ -89,8 +89,7 @@ const devolverJSON = () => {
 };
 
 module.exports = {
-  devolverJSON,
-  hacerPreguntas,
+  devolverJSON
 };
 
 //Json parse es para convertir un .json a un objeto de java.

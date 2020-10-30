@@ -14,6 +14,9 @@ exports.getEncuestasLanzadas = async function (req, res, next) {
     try {
         var id=req.headers.idusuario
         var LanzamientoEncuestas = await LanzamientoEncuestaService.getEncuestasLanzadas(id)
+        if(LanzamientoEncuestas===null){
+            return res.status(404).json({status:404,data:"No hay encuesta lanzadas por este usuario",message:"No se encontraron encuesta"})
+        }
         return res.status(200).json({status: 200, data: LanzamientoEncuestas, message: "Encuestas lanzadas al momento"});
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});

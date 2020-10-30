@@ -11,7 +11,7 @@ var LanzamientoEncuestaSchema= new moongose.Schema({
     fecha:Date, 
     fechaVencimiento:Date,
     listaEmpresasLanzadas:[]
-
+    //FIJARSE SI SE PUEDE DEFINIR UN ARRAYLIST<EMPRESAS>
 })
 
 LanzamientoEncuestaSchema.plugin(mongoosePaginacion)

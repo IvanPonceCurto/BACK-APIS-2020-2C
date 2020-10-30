@@ -39,8 +39,10 @@ exports.createUser = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var User = {
-        name: req.body.name,
+        nombreUsuario: req.body.nombreUsuario,
         email: req.body.email,
+        nombre: req.body.nombre,
+        apellido:req.body.apellido,
         password: req.body.password
     }
     try {
@@ -63,10 +65,12 @@ exports.updateUser = async function (req, res, next) {
 
     
     var User = {
-       
-        name: req.body.name ? req.body.name : null,
+        nombreUsuario: req.body.nombreUsuario ? req.body.nombreUsuario : null,
         email: req.body.email ? req.body.email : null,
-        password: req.body.password ? req.body.password : null
+        nombre: req.body.nombre? req.body.nombre : null,
+        apellido:req.body.apellido? req.body.apellido : null,
+        password: req.body.password? req.body.password : null
+       
     }
     try {
         var updatedUser = await UserService.updateUser(User)

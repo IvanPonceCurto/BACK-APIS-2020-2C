@@ -32,10 +32,13 @@ exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
     var newUser = new User({
-        name: user.name,
+        nombreUsuario: user.nombreUsuario,
         email: user.email,
-        date: new Date(),
-        password: hashedPassword
+        nombre: user.nombre,
+        apellido: user.apellido,
+        password: hashedPassword,
+        date: new Date()
+       
     })
 
     try {
@@ -56,7 +59,7 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
     
-    var id = {name :user.name}
+    var id = {nombreUsuario :user.nombreUsuario}
 
     try {
         //Find the old User Object by the Id
@@ -70,8 +73,10 @@ exports.updateUser = async function (user) {
     }
     //Edit the User Object
     var hashedPassword = bcrypt.hashSync(user.password, 8);
-    oldUser.name = user.name
+    oldUser.nombreUsuario = user.nombreUsuario
     oldUser.email = user.email
+    oldUser.nombre = user.nombre
+    oldUser.apellido = user.apellido
     oldUser.password = hashedPassword
     try {
         var savedUser = await oldUser.save()

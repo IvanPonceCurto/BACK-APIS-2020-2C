@@ -10,6 +10,7 @@ router.get('/test', function(req, res, next) {
   });
 router.post('/newEmpresa', EmpresaController.createEmpresas)
 router.get('/empresas',  EmpresaController.getEmpresas)
+router.get('/empresas/:id', EmpresaController.getEmpresasById)
 router.put('/empresas/update/', EmpresaController.updateEmpresa)
 router.delete('/:id', EmpresaController.removeEmpresa)
 
