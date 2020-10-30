@@ -13,3 +13,4 @@ router.use('/respuestaEncuesta',respuesta)
 router.use('/lanzamientoEncuesta',lanzamientoEncuesta)
 router.use('/encuestas',encuesta);
 module.exports = router;
+ 

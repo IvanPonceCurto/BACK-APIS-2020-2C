@@ -14,3 +14,5 @@ ProblemaSchema.plugin(mongoosePaginacion)
 const Problema= moongose.model('Problema',ProblemaSchema)
 
 module.exports=Problema; //Defino que exporto la empresa
+
+//Esto podriamos dejarlo para hacerlo como una especie de logs, logs de errores.

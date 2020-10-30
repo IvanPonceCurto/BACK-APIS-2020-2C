@@ -69,8 +69,8 @@ const devolverJSON = () => {
   let listaPreguntasTotales = [];
   let tipoText = new TextQuestion(
     "TEXT",
-    "Es acaso el Fares el peronista N°1?",
-    "SEEE PADREEE",
+    "Pregunta pregunta?",
+    "Siii",
     true
   );
   //let preguntas=new Preguntas(JSON.stringify(tipoText))

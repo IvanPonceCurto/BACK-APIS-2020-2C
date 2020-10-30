@@ -15,7 +15,7 @@ var EncuestaSchema= new moongose.Schema({
     modified:Date,
     preguntas:{
         total:Number,
-        preguntas:[]
+        preguntas:Object
         
     },
     timestamp:Date
@@ -27,3 +27,5 @@ EncuestaSchema.plugin(mongoosePaginacion)
 const Encuesta= moongose.model('Encuesta',EncuestaSchema)
 
 module.exports=Encuesta; //Defino que exporto la encuesta
+
+//Me deberia crear un metodo que itere sobre la totalidad de el resultado del get para que genere un post.

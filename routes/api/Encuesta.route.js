@@ -13,7 +13,7 @@ router.get('/encuestasDeLaBDD',  EncuestaController.getEncuestasDeLaBDD)
 router.get('/encuesta/:id',EncuestaController.getEncuesta)
 router.get('/encuestasDeLaAPI',EncuestaController.getEncuestasDeLaAPI)
 
-// Export the Router
+// Export the Router 
 module.exports = router;
 
 

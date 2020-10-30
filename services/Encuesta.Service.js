@@ -5,7 +5,46 @@ var {v4:uuidv4}=require('uuid')
 // Saving the context of this module inside the _the variable
 _this = this
 
-// Async function to get the Empresa List
+const MOCKEATRES=[ 
+    {   "tituloEncuesta":"Encuesta trimestral 5",
+        "estadoEncuesta":"activa",
+        "descripcion":"Encuesta para saber el desarrollo de las apis este trimeste",
+        "created":"2020-12-12",
+        "modified":"2020-12-13",
+        "preguntas":{
+        "total": 12,
+        "preguntas": [  {
+            "title":"titulo",
+            "resultado":"hola"
+                }]
+        }
+    },{   
+        "tituloEncuesta":"Encuesta trimestral 6",
+        "estadoEncuesta":"activa",
+        "descripcion":"Encuesta para saber el desarrollo de las apis este trimeste pero del mock",
+        "created":"2020-12-12",
+        "modified":"2020-12-13",
+        "preguntas":{
+        "total": 12,
+        "preguntas": [  {
+            "title":"titulo",
+            "resultado":"hola"
+                    }]
+    },
+},{   "tituloEncuesta":"Encuesta trimestral 5",
+"estadoEncuesta":"activa",
+"descripcion":"Encuesta para saber el desarrollo de las apis este trimeste",
+"created":"2020-12-12",
+"modified":"2020-12-13",
+"preguntas":{
+"total": 12,
+"preguntas": [  {
+    "title":"titulo",
+    "resultado":"hola"
+        }]
+}
+}
+]
 exports.getEncuestasBDD = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate
@@ -27,16 +66,35 @@ exports.getEncuestasBDD = async function (query, page, limit) {
 
 exports.getEncuestasAPI = async function (url) {
     try {
-            let response = await fetch(url);
-            let Encuestas = await response.json()
-            return Encuestas;
+            //let response = await fetch(url);
+            //let Encuestas = await response.json()
+            
+            var listaExitos=fromApiToEncuesta(MOCKEATRES)
+            //El await es necesario? con un parse lo podemos hacer
+            //Ver si esta bien planteado asi o no, el metodo de fromApiToEncuesta.
+            return listaExitos;
             
     } catch (e) {
         // return a Error message describing the reason 
         throw Error('Error al traer  las encuestas registradas en la API!');
     }
 }
-
+const fromApiToEncuesta=(listaEncuestasApi)=>{
+    const listaExitos=[]
+    try{
+        for (let i = 0; i < listaEncuestasApi.length; i++) {
+            var EncuestaBDD=this.createEncuesta(listaEncuestasApi[i]);
+            if(EncuestaBDD!=null){
+                listaExitos[i]=1;
+            }else{
+                listaExitos[i]=0;
+            }
+        }
+        return listaExitos
+    }catch(e){
+        throw Error("Error al postear las empresas desde la api a nuestra bdd")
+    }
+}
 exports.createEncuesta = async function (encuesta) {
     //SACARLE LOS ToString() al UUID para que funcione.
     var codigo=uuidv4();
@@ -57,6 +115,7 @@ exports.createEncuesta = async function (encuesta) {
     try {
         // Guardando la empresa 
         var savedEncuesta = await newEncuesta.save();
+        return savedEncuesta
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    

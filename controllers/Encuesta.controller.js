@@ -18,7 +18,7 @@ exports.getEncuestasDeLaBDD = async function (req, res, next) {
 }
 
 exports.getEncuestasDeLaAPI = async function (req, res, next) {
-     const url = '' //URL DE LA API
+     const url = 'Pepe' //URL DE LA API
     try {
         var Encuestas = await EncuestaService.getEncuestasAPI(url)
         // Return the Polls list with the appropriate HTTP password Code and Message.
