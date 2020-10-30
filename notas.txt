@@ -1,0 +1,57 @@
+const hacerPreguntas=(tipoPregunta,listaPropiedades)=>{
+    switch (tipoPregunta) {
+        case tipoPregunta==="select":
+            class SelectQuestion extends Preguntas{
+                constructor(type,title,value,mandatory,options,description){
+                    super(type,title,value,mandatory)
+                    this.description=description;
+                    this.options=options;
+            }}
+            return new SelectQuestion(); 
+            break;   
+        
+    case tipoPregunta==="choice":
+        class ChoiceQuestion extends Preguntas{
+            constructor(type,title,value,mandatory,options){
+                super(type,title,value,mandatory)
+                this.options=options;
+            }
+        }
+        return new ChoiceQuestion();
+    case tipoPregunta==="file":
+        class FileQuestion extends Preguntas{
+            constructor(type,title,value,mandatory,archivo){
+                super(type,title,value,mandatory)
+                this.archivo=archivo;
+            }
+        }
+        return FileQuestion(listaPropiedades.type,listaPropiedades.title,listaPropiedades.value,listaPropiedades.mandatory,listaPropiedades.archivo);
+    case tipoPregunta==="grouped":
+        class GroupedQuestion extends Preguntas{
+            constructor(type,title,value,mandatory,questions){
+                super(type,title,mandatory,value)
+                this.questions=questions;
+            }
+        }
+        return new GroupedQuestion(listaPropiedades.type,
+            listaPropiedades.title,
+            listaPropiedades.value,listaPropiedades.mandatory,
+            listaPropiedades.options);
+  
+    case tipoPregunta==="number":
+        class NumberQuestion extends Preguntas{
+            constructor(type,title,value,mandatory,description,restrictions){
+                super(type,title,value,mandatory)
+                this.restrictions=restrictions;
+                this.description=description;
+            }
+        }
+        return new NumberQuestion(listaPropiedades.type,
+            listaPropiedades.title,
+            listaPropiedades.value,listaPropiedades.mandatory,
+            listaPropiedades.description,
+            listaPropiedades.restrictions);
+    default:
+        return undefined;
+}
+}

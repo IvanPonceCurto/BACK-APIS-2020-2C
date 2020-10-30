@@ -1,6 +1,8 @@
 var test=require("../models/ExponerRespuestas.model")
-exports.devolverRespuestasEncuesta= async function (query){
+exports.devolverRespuestasEncuesta= async function (filters){
     try{
+        //En filters nos llegan los filtros para buscar por encuesta y segun el usuario observatorio pyme.
+        //aca seria la llamada al get del servicio de fran
         var file=await test.devolverJSON();
         //console.log(file)
         return file;
