@@ -17,6 +17,7 @@ var listaNotificacionesMockeadas=[{
     tipo:"Se te va a vencer la encuesta pa",
     mensaje:"Responde la encuesta flaco"
 }]
+//Mandar el mail, y que se dispare la notificacion en la aplicacion.
 
 const funcion= ()=>{
     return listaNotificacionesMockeadas;

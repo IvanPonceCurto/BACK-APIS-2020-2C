@@ -6,7 +6,7 @@ var {v4:uuidv4}=require('uuid')
 _this = this
 
 const MOCKEATRES=[ 
-    {   "tituloEncuesta":"Encuesta trimestral 5",
+    {   "tituloEncuesta":"Encuesta de prueba de hoy",
         "estadoEncuesta":"activa",
         "descripcion":"Encuesta para saber el desarrollo de las apis este trimeste",
         "created":"2020-12-12",
@@ -19,7 +19,7 @@ const MOCKEATRES=[
                 }]
         }
     },{   
-        "tituloEncuesta":"Encuesta trimestral 6",
+        "tituloEncuesta":"Encuesta trimestral 1231236",
         "estadoEncuesta":"activa",
         "descripcion":"Encuesta para saber el desarrollo de las apis este trimeste pero del mock",
         "created":"2020-12-12",
@@ -31,7 +31,7 @@ const MOCKEATRES=[
             "resultado":"hola"
                     }]
     },
-},{   "tituloEncuesta":"Encuesta trimestral 5",
+},{   "tituloEncuesta":"Encuesta trimestral 3463465",
 "estadoEncuesta":"activa",
 "descripcion":"Encuesta para saber el desarrollo de las apis este trimeste",
 "created":"2020-12-12",
@@ -95,6 +95,35 @@ const fromApiToEncuesta=(listaEncuestasApi)=>{
         throw Error("Error al postear las empresas desde la api a nuestra bdd")
     }
 }
+
+exports.getUltimasEncuestas= async function (req,listaEncuestas){
+    //Me traigo todas las encueastas hasta ese momento.
+    const url="aca iria la url de el servicio que expondrian"
+    try{
+        var encuestas= await fetch(url)
+        var returnEncuestas= await encuestas.json()
+        if(returnEncuestas.length===listaEncuestas.length){
+            //La lista de encuestas es la misma, no habria necesida de cambiar las listas
+            return listaEncuestas;
+        }else{
+            const control=listaEncuestas.length;
+            for (let i = 0; i < returnEncuestas[control].length; i++) {
+                //Itera desde el primer elemento que no encuentra de la lista.
+                this.createEncuesta(returnEncuestas[control+i])
+                listaEncuestas.push(returnEncuestas[control+i]);
+                //Agrega la nueva encuesta a la lista.
+                
+            }
+        }
+        //LISTA 1:[1,2,3,4,5]
+        //LISTA 2:[9,8,7,6,5,4,3,2,1]
+
+        return listaEncuestas
+    }catch(e){
+        throw new Error(e)
+    }
+}
+
 exports.createEncuesta = async function (encuesta) {
     //SACARLE LOS ToString() al UUID para que funcione.
     var codigo=uuidv4();

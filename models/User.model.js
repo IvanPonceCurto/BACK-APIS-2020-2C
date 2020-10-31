@@ -16,3 +16,5 @@ const User = mongoose.model('User', UserSchema)
 
 
 module.exports = User;
+
+//Boton de actualizar encuestas hasta el momento y 
