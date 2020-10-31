@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var UserController = require('../../controllers/users.controller');
 var Authorization = require('../../auth/authorization');
+var MailController = require('../../controllers/Mail.controller');
 
 
 // Authorize each API with middleware and map to the Controller Functions
@@ -16,6 +17,7 @@ router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/', Authorization, UserController.updateUser)
 router.delete('/:id', Authorization, UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)
+router.post('/sendMail',MailController.sendEmail)
 
 // Export the Router
 module.exports = router;
