@@ -3,11 +3,11 @@ const { static } = require('express')
 var moongose=require('mongoose')
 var mongoosePaginacion=require('mongoose-paginate')
 
-
+ 
 
 var EmpresaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
-    idEmpresa: String,
+    idEmpresa: Object,
     nombreEmpresa:String,
     razonSocial:String,
     CUIT:String,

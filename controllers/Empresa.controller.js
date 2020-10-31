@@ -1,3 +1,4 @@
+const Empresa = require('../models/Empresa.model');
 var EmpresaService = require('../services/Empresa.Service');
 
 // Saving the context of this module inside the _the variable
@@ -18,14 +19,25 @@ exports.getEmpresas = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
+exports.getEmpresasById=async function (req,res){
+    var idEmpresa=req.params.id ? req.params.id:-1;
+    if(idEmpresa!=-1){
+        try{
+        var EmpresasReturn=await EmpresaService.getEmpresasById(idEmpresa);
+        return res.status(200).json({status:200,data:EmpresasReturn,message:"Empresa recibida con exito"})
+        }catch(e){
+            return res.status(400).json({status:400,message:e.message})
+        }   
+    }
 
+}
 exports.createEmpresas = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("llegue al controller",req.body)
-    var body= req.body.nombre? req.body.nombre:-1;
+    console.log("Crear empresas con los siguientes datos: " ,req.body)
+    var body= req.body.nombreEmpresa? req.body.nombreEmpresa:-1;
     if(body!=-1){
         var Empresa={
-            nombre:req.body.nombre,
+            nombre:req.body.nombreEmpresa,
             razonSocial: req.body.razonSocial,
             CUIT: req.body.CUIT,
             responsable: req.body.responsable

@@ -3,8 +3,10 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var UserSchema = new mongoose.Schema({
-    name: String,
+    nombreUsuario: String,
     email: String,
+    nombre:String,
+    apellido:String,
     password: String,
     date: Date
 })
@@ -12,4 +14,7 @@ var UserSchema = new mongoose.Schema({
 UserSchema.plugin(mongoosePaginate)
 const User = mongoose.model('User', UserSchema)
 
+
 module.exports = User;
+
+//Boton de actualizar encuestas hasta el momento y 

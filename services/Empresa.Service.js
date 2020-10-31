@@ -1,12 +1,19 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Empresa = require('../models/Empresa.model');
-var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
 var {v4:uuidv4}=require('uuid')
-// Saving the context of this module inside the _the variable
+
 _this = this
 
-// Async function to get the Empresa List
+exports.getEmpresasById=async function(idEmpresa){
+    console.log("El id de la empresa por el que quiere buscar es: " , idEmpresa)
+    try{
+        var EmpresaDevolver= Empresa.findById(idEmpresa)
+        return EmpresaDevolver
+    }catch(e){
+        throw new Error("Error al traer a la empresa por el id");
+    }
+
+}
 exports.getEmpresas = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate
@@ -28,7 +35,7 @@ exports.getEmpresas = async function (query, page, limit) {
 
 exports.createEmpresa = async function (empresa) {
     // Creating a new Mongoose Object by using the new keyword
-    var codigo=uuidv4().toString;
+    var codigo=uuidv4();
     var newEmpresa = new Empresa({
         idEmpresa:codigo,
         nombreEmpresa: empresa.nombreEmpresa,

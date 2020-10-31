@@ -44,7 +44,7 @@ notificaciones:{
 DASHBOARD: --> /admin/dashboard
     * Muestra cada encuesta lanzada
     * Tienen que estar los datos de cuantas preguntas respondio c/empresa.
-    * Expongo N vinculos de estadistica por N encuesta. N->nombreEmpresa
+    * Expongo N vinculos de estadistica por N encuestas. N->nombreEmpresa
     * Actualizar constantemente mientras las empresas van contestando.
     * Retirar la empresa.
 

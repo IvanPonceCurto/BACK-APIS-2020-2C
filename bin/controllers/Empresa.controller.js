@@ -22,7 +22,7 @@ exports.getEmpresas = async function (req, res, next) {
 exports.createEmpresas = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
-    var body= req.body.nombre? req.body.nombre:-1;
+    var body= req.body.nombreEmpresa? req.body.nombreEmpresa:-1;
     if(body===-1){
         var Empresa={
             nombreEmpresa:req.body.nombreEmpresa,
