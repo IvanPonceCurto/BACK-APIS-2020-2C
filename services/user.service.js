@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var User = require('../models/User.model');
+var Empresa = require('../models/Empresa.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -32,7 +33,9 @@ exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
     var newUser = new User({
+        
         nombreUsuario: user.nombreUsuario,
+        flag:user.flag,
         email: user.email,
         nombre: user.nombre,
         apellido: user.apellido,
@@ -103,24 +106,48 @@ exports.deleteUser = async function (id) {
 }
 
 
-exports.loginUser = async function (user) {
+exports.loginUser = async function (usuario) {
 
     // Creating a new Mongoose Object by using the new keyword
     try {
         // Find the User 
-        console.log("login:",user)
+        console.log("login:",usuario)
         var _details = await User.findOne({
-            email: user.email
-        });
-        var passwordIsValid = bcrypt.compareSync(user.password, _details.password);
-        if (!passwordIsValid) throw Error("Invalid username/password")
+            nombreUsuario: usuario.nombreUsuario
+           
 
-        var token = jwt.sign({
-            id: _details._id
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
         });
-        return {token:token, user:_details};
+        console.log(_details)
+
+        var _detailsEmpresa = await Empresa.findOne({
+            nombreEmpresa: usuario.nombreUsuario
+        });
+
+        console.log(_detailsEmpresa)
+        if(_details !== null){
+                var passwordIsValid = bcrypt.compareSync(usuario.password, _details.password);
+                if (!passwordIsValid) throw Error("Invalid username/password")
+
+                var token = jwt.sign({
+                    id: _details._id
+                }, process.env.SECRET, {
+                    expiresIn: 86400 // expires in 24 hours
+                });
+                return {token:token, user:_details};
+        }
+        else{
+            console.log("ENTRE AL ELSE"+_detailsEmpresa.password)
+            var passwordIsValid = bcrypt.compareSync(usuario.password, _detailsEmpresa.password);
+            console.log(passwordIsValid)
+                if (!passwordIsValid) throw Error("Invalid username/password")
+                
+                var token = jwt.sign({
+                    id: _detailsEmpresa._id
+                }, process.env.SECRET, {
+                    expiresIn: 86400 // expires in 24 hours
+                });
+                return {token:token, user:_detailsEmpresa};
+        }
     } catch (e) {
         // return a Error message describing the reason     
         throw Error("Error while Login User")

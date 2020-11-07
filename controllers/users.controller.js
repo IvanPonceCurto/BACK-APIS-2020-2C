@@ -40,6 +40,7 @@ exports.createUser = async function (req, res, next) {
     console.log("llegue al controller",req.body)
     var User = {
         nombreUsuario: req.body.nombreUsuario,
+        flag:0,
         email: req.body.email,
         nombre: req.body.nombre,
         apellido:req.body.apellido,
@@ -96,7 +97,7 @@ exports.loginUser = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("body",req.body)
     var User = {
-        email: req.body.email,
+        nombreUsuario: req.body.user,
         password: req.body.password
     }
     try {
