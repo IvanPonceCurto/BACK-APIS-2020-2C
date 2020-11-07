@@ -11,6 +11,12 @@ const urlWebServices={
 }
 CLOUDINARY_URL=cloudinary+':'+url+apiKey+':'+apiSecret+':'+'@apisbackfranivan'
 
+cloudinary.config({
+    cloud_name:"@apisbackfranivan",
+    api_key:process.env.api_key,
+    api_secret:process.env.api_secret
+})
+
 
 //Nombres de paraemtro: snake_case public_id 
 //Clases PascalCase -->  PreLoadedFile
@@ -23,6 +29,11 @@ CLOUDINARY_URL=cloudinary+':'+url+apiKey+':'+apiSecret+':'+'@apisbackfranivan'
 
 //PEPE_GOMEZ/01_12_1.jpg,-->01_12_2.jpg
 
+cloudinary.v2.uploader.upload("C:\Users\IVAN\Desktop\pruebaSubida.jpg",function(error,result){
+    console.log("El error fue:" +error)
+    console.log("Los datos subidos fueron:")
+    console.log(result.json())
+})
 export const guardarImgUser = async function(message)
 {
     //url webservices

@@ -45,6 +45,7 @@ const MOCKEATRES=[
 }
 }
 ]
+
 exports.getEncuestasBDD = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate

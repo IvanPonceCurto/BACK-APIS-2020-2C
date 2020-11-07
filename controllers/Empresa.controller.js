@@ -1,8 +1,8 @@
 const Empresa = require('../models/Empresa.model');
 var EmpresaService = require('../services/Empresa.Service');
 
-// Saving the context of this module inside the _the variable
-_this = this; // --> Porque lo hace, no lo se rick.
+//mongodb+srv://admin:<password>@backapi.2a0dj.mongodb.net/<dbname>?retryWrites=true&w=majority
+_this = this;
 
 // Async Controller function to get the To do List
 exports.getEmpresas = async function (req, res, next) {

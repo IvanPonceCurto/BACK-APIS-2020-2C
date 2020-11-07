@@ -74,7 +74,7 @@ const devolverJSON = () => {
     true
   );
   //let preguntas=new Preguntas(JSON.stringify(tipoText))
-  listaPreguntas.push(JSON.stringify(tipoText));
+  listaPreguntas.push(tipoText);
   let variable = new objectToSave(
     "5",
     "ivanPonce",

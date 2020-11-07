@@ -16,90 +16,91 @@ async function checkCreateUploadsFolder (uploadsFolder) {
     {
         if (e && e.code == 'ENOENT') 
         {
-			console.log('The uploads folder doesn\'t exist, creating a new one...')
+			console.log("La carpeta que se quiere crear no existe, se esta creando la carpeta.")
             try 
             {
 				await fs.mkdirAsync(uploadsFolder)
             } 
             catch (err) 
             {
-				console.log('Error creating the uploads folder 1')
+				console.log('No se puede crear la carpeta')
 				return false
 			}
         } 
         else 
         {
-			console.log('Error creating the uploads folder 2')
+			console.log('No se puede crear la carpeta.')
 			return false
 		}
 	}
 	return true
 }
 
-// Returns true or false depending on whether the file is an accepted type
+const accepted = ['jpeg', 'jpg', 'png', 'gif', 'pdf','webp']
 function checkAcceptedExtensions (file) 
 {
 	const type = file.type.split('/').pop()
-	const accepted = ['jpeg', 'jpg', 'png', 'gif', 'pdf','webp']
 	if (accepted.indexOf(type) == -1) {
 		return false
 	}
 	return true
+	//Se fija si la extension existe y es valida dentro de lo que permitimos, sino nos tira -1.
+
 }
 
 exports.uploadFiles = async function (req, res, next) {
-    //console.log("req",req.body);
+    //Formidable se usa para parsear los datos de un archivo para poder guardarlos.
     let form = Formidable.IncomingForm()
-    //console.log("form",form);
+    
     const uploadsFolder = process.env.UPLOAD_DIR
-    //console.log("uploadFolder",uploadsFolder);
+    
 	form.multiples = true
 	form.uploadDir = uploadsFolder
 	form.maxFileSize = 50 * 1024 * 1024 // 50 MB
 	const folderCreationResult = await checkCreateUploadsFolder(uploadsFolder)
 	if (!folderCreationResult) {
-		return res.json({ok: false, msg: "The uploads folder couldn't be created"})
+		return res.json({ok: false, msg: "La carpeta no pude ser creada."})
 	}
 	form.parse(req, async (err, fields, files) => {
 		let myUploadedFiles = []
 		if (err) {
-			console.log('Error parsing the incoming form',err)
-			return res.json({ok: false, msg: 'Error passing the incoming form'})
+			console.log('Ocurrio un error.',err)
+			return res.json({ok: false, msg: 'Error parseando el form de entrada.'})
 		}
 		// If we are sending only one file:
 		if (!files.files.length) {
 			const file = files.files
 			if (!checkAcceptedExtensions(file)) {
-				console.log('The received file is not a valid type')
-				return res.json({ok: false, msg: 'The sent file is not a valid type'})
+				console.log('EL tipo de archivo recibido no es valido.')
+				return res.json({ok: false, msg: 'El tipo de archivo enviando no es valido, lista de archivos validos --> '+accepted.toString()})
 			}
 			const fileName = encodeURIComponent(file.name.replace(/&. *;+/g, '-'))
 			myUploadedFiles.push(fileName)
 			try {
 				await fs.renameAsync(file.path, join(uploadsFolder, fileName))
 			} catch (e) {
-				console.log('Error uploading the file')
+				console.log('Error subiendo el archivo')
 				try { await fs.unlinkAsync(file.path) } catch (e) {}
-				return res.json({ok: false, msg: 'Error uploading the file'})
+				return res.json({ok: false, msg: 'Error subiendo el archivo'})
 			}
 		} else {
 			for(let i = 0; i < files.files.length; i++) {
 				const file = files.files[i]
 				if (!checkAcceptedExtensions(file)) {
-					console.log('The received file is not a valid type')
-					return res.json({ok: false, msg: 'The sent file is not a valid type'})
+					console.log('El tipo de archivo recibido no es valido')
+					return res.json({ok: false, msg: 'El tipo de archivo no es valido'})
 				}
 				const fileName = encodeURIComponent(file.name.replace(/&. *;+/g, '-'))
 				myUploadedFiles.push(fileName)
 				try {
 					await fs.renameAsync(file.path, join(uploadsFolder, fileName))
 				} catch (e) {
-					console.log('Error uploading the file')
+					console.log('Error subiendo el archivo')
 					try { await fs.unlinkAsync(file.path) } catch (e) {}
-					return res.json({ok: false, msg: 'Error uploading the file'})
+					return res.json({ok: false, msg: 'Error subiendo el archivo'})
 				}
 			}
 		}
-		res.json({ok: true, msg: 'Files uploaded succesfully!', files: myUploadedFiles})
+		res.json({ok: true, msg: 'Archivos subidos con exito!', files: myUploadedFiles})
 	})
 }
