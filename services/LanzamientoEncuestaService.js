@@ -11,8 +11,9 @@ exports.postEncuestasLanzamiento=async function(encuesta){
     var lanzar=new LanzamientoEncuesta({
         idUsuario:encuesta.idUsuario,
         idEncuesta:encuesta.idEncuesta,
+        encuesta:encuesta.encuesta,
         responsable:encuesta.responsable,
-        fecha:Date.now(),
+        fecha:encuesta.fecha,
         fechaVencimiento:encuesta.fechaVencimiento,
         listaEmpresasLanzadas:encuesta.listaEmpresasLanzadas
     })
@@ -34,7 +35,7 @@ exports.getEncuestasLanzadas=async function(query){
         page,limit
     }
     try{   
-        var encuestasLanzadas=await LanzamientoEncuesta.findOne({
+        var encuestasLanzadas=await LanzamientoEncuesta.find({
             idUsuario:query
             //User.service tiene lo del findOne
         });

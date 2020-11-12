@@ -153,17 +153,14 @@ exports.createEncuesta = async function (encuesta) {
 }
 
 
-exports.getEncuesta = async function (id) {
-    
-    
-    try {
-        var Encuesta2 = await Encuesta.findById(id);
-        //Estaba puesto Encuesta y se superponian los datos
-        return Encuesta2;
-
-    } catch (e) {
-        
-        throw Error('Error al traer la encuesta registrada en la base!');
+exports.getEncuestaById=async function(idEncuesta){
+    console.log("El id del Usuario por el que quiere buscar es: " , idEncuesta)
+    try{
+        var EncuestaDevolver= await Encuesta.findById(idEncuesta)
+        console.log(EncuestaDevolver)
+        return EncuestaDevolver
+    }catch(e){
+        throw new Error("Error al traer el usuario por el id");
     }
 }
 

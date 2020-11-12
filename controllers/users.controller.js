@@ -19,6 +19,20 @@ exports.getUsers = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
+
+exports.getUsersById=async function (req,res){
+    var idUsuario=req.body.id ? req.body.id:-1;
+    if(idUsuario!=-1){
+        try{
+        var UserReturn=await UserService.getUsersById(idUsuario);
+        return res.status(200).json({status:200,data:UserReturn,message:"Usuario recibido con exito"})
+        }catch(e){
+            return res.status(400).json({status:400,message:e.message})
+        }   
+    }
+}
+
+ /*   
 exports.getUsersByMail = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
@@ -34,6 +48,7 @@ exports.getUsersByMail = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
+*/
 
 exports.createUser = async function (req, res, next) {
     // Req.Body contains the form submit values.

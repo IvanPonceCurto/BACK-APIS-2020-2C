@@ -30,18 +30,15 @@ exports.getEncuestasDeLaAPI = async function (req, res, next) {
 }
 
 
-exports.getEncuesta = async function (req, res, next) {
-
-    var id = req.params.id ? req.params.id : -1;
-    console.log("El id de la encuesta que trae es: " +id)
-    try {
-        var Encuesta = await EncuestaService.getEncuesta(id) 
-        // Return the Polls list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Encuesta, message: "Encuesta recibida correctamente"});
-        
-    } catch (e) {
-        //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({status: 400, message: e.message});
+exports.getEncuestaById=async function (req,res){
+    var idEncuesta=req.body.id ? req.body.id:-1;
+    if(idEncuesta!=-1){
+        try{
+        var EncuestaReturn=await EncuestaService.getEncuestaById(idEncuesta);
+        return res.status(200).json({status:200,data:EncuestaReturn,message:"Encuesta recibida con exito"})
+        }catch(e){
+            return res.status(400).json({status:400,message:e.message})
+        }   
     }
 }
 

@@ -28,6 +28,18 @@ exports.getUsers = async function (query, page, limit) {
     }
 }
 
+exports.getUsersById=async function(idUsuario){
+    console.log("El id del Usuario por el que quiere buscar es: " , idUsuario)
+    try{
+        var UsuarioDevolver= await User.findById(idUsuario)
+        console.log(UsuarioDevolver)
+        return UsuarioDevolver
+    }catch(e){
+        throw new Error("Error al traer el usuario por el id");
+    }
+
+}
+
 exports.createUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
     var hashedPassword = bcrypt.hashSync(user.password, 8);

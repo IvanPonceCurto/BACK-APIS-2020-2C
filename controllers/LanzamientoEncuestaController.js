@@ -1,7 +1,8 @@
 const Empresa = require('../models/Empresa.model');
+const Encuesta = require('../models/Encuesta.model');
 const LanzamientoEncuesta = require('../models/LanzamientoEncuesta.model');
 var LanzamientoEncuestaService= require('../services/LanzamientoEncuestaService');
-
+var EncuestaService = require ("../services/Encuesta.Service")
 
 _this = this;
 
@@ -25,12 +26,15 @@ exports.getEncuestasLanzadas = async function (req, res, next) {
 
 exports.postLanzamientoEncuesta = async function (req, res, next) {
     // Req.Body contains the form submit values.
+    console.log("ENTREEEE")
     var body= req.body.listaEmpresasLanzadas? req.body.listaEmpresasLanzadas:-1;
     if(body!=-1){
         var LanzamientoEncuesta={
             idUsuario:req.body.idUsuario,
             idEncuesta:req.body.idEncuesta,
+            encuesta:await EncuestaService.getEncuestaById(req.body.idEncuesta),
             responsable:req.body.responsable,
+            fecha:Date.now(),
             fechaVencimiento: req.body.fechaVencimiento,
             listaEmpresasLanzadas: req.body.listaEmpresasLanzadas
         }

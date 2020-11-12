@@ -1,12 +1,14 @@
 var moongose=require('mongoose')
 var mongoosePaginacion=require('mongoose-paginate');
-var empresa=require('./Empresa.model').model;
+var empresa=require('./Empresa.model');
+var Encuesta = require("./Encuesta.model")
 //Ver porque tenemos que usar el .model
 
 var LanzamientoEncuestaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
-    idUsuario:Number,
-    idEncuesta:Number,
+    idUsuario:String,
+    idEncuesta:String,
+    encuesta:Object,
     responsable:{},
     fecha:Date, 
     fechaVencimiento:Date,

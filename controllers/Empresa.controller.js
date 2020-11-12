@@ -42,8 +42,13 @@ exports.createEmpresas = async function (req, res, next) {
             password:req.body.password,
             razonSocial: req.body.razonSocial,
             CUIT: req.body.CUIT,
-            responsable: req.body.responsable
+            responsable:{
+                dni:req.body.dni,
+                nombreResponsable:req.body.nombreApellido,
+                email:req.body.email,
+                telefono:req.body.telefono
 
+            }
         }
     }
     
