@@ -12,8 +12,9 @@ router.get('/test', function(req, res, next) {
   });
 router.post('/registration', UserController.createUser)
 router.post('/login/', UserController.loginUser)
-router.get('/', Authorization,UserController.getUsers)
-router.post('/userByMail', Authorization, UserController.getUsersByMail)
+router.get('/usuarios', Authorization,UserController.getUsers)
+router.post('/usuarioPorId', UserController.getUsersById)
+//router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/', Authorization, UserController.updateUser)
 router.delete('/:id', Authorization, UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)

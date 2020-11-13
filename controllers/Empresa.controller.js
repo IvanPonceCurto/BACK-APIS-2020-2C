@@ -37,12 +37,18 @@ exports.createEmpresas = async function (req, res, next) {
     var body= req.body.nombreEmpresa? req.body.nombreEmpresa:-1;
     if(body!=-1){
         var Empresa={
-            flag:req.body.flag,
+            flag:1,
             nombreEmpresa:req.body.nombreEmpresa,
+            password:req.body.password,
             razonSocial: req.body.razonSocial,
             CUIT: req.body.CUIT,
-            responsable: req.body.responsable
+            responsable:{
+                dni:req.body.dni,
+                nombreResponsable:req.body.nombreApellido,
+                email:req.body.email,
+                telefono:req.body.telefono
 
+            }
         }
     }
     

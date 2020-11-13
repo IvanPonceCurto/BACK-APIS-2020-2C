@@ -10,7 +10,7 @@ router.get('/test', function(req, res, next) {
   });
 router.post('/newEncuesta', EncuestaController.createEncuesta)
 router.get('/encuestasDeLaBDD',  EncuestaController.getEncuestasDeLaBDD)
-router.get('/encuesta/:id',EncuestaController.getEncuesta)
+router.post('/encuestaPorId', EncuestaController.getEncuestaById)
 router.get('/encuestasDeLaAPI',EncuestaController.getEncuestasDeLaAPI)
 
 // Export the Router 

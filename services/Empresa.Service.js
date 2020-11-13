@@ -1,7 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Empresa = require('../models/Empresa.model');
 var {v4:uuidv4}=require('uuid')
-
+var bcrypt = require('bcryptjs');
 _this = this
 
 exports.getEmpresasById=async function(idEmpresa){
@@ -36,10 +36,12 @@ exports.getEmpresas = async function (query, page, limit) {
 exports.createEmpresa = async function (empresa) {
     // Creating a new Mongoose Object by using the new keyword
     var codigo=uuidv4();
+    var hashedPassword = bcrypt.hashSync(empresa.password, 8);
     var newEmpresa = new Empresa({
         idEmpresa:codigo,
         flag:empresa.flag,
         nombreEmpresa: empresa.nombreEmpresa,
+        password:hashedPassword,
         razonSocial: empresa.razonSocial,
         CUIT: empresa.CUIT,
         responsable: empresa.responsable,

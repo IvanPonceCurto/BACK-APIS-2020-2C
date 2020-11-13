@@ -11,9 +11,10 @@ var EmpresaSchema= new moongose.Schema({
     flag:Number,
     password:String,
     nombreEmpresa:String,
+    password:String,
     razonSocial:String,
     CUIT:String,
-    responsable:[],
+    responsable:{},
     timestamp:Date
 
 })
