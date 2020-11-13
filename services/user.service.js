@@ -77,11 +77,11 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
     
-    var id = {nombreUsuario :user.nombreUsuario}
+    var idUser = user.id
 
     try {
         //Find the old User Object by the Id
-        var oldUser = await User.findOne(id);
+        var oldUser = await User.findById(idUser);
     } catch (e) {
         throw Error("Error occured while Finding the User")
     }
@@ -90,14 +90,16 @@ exports.updateUser = async function (user) {
         return false;
     }
     //Edit the User Object
-    var hashedPassword = bcrypt.hashSync(user.password, 8);
+    //var hashedPassword = bcrypt.hashSync(user.password, 8);
     oldUser.nombreUsuario = user.nombreUsuario
     oldUser.email = user.email
     oldUser.nombre = user.nombre
     oldUser.apellido = user.apellido
-    oldUser.password = hashedPassword
+    //oldUser.password = hashedPassword
     try {
         var savedUser = await oldUser.save()
+        console.log("USUARIO GUARDADO")
+        console.log(savedUser)
         return savedUser;
     } catch (e) {
         throw Error("And Error occured while updating the User");
