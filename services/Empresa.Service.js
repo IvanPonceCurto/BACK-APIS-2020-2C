@@ -38,6 +38,7 @@ exports.createEmpresa = async function (empresa) {
     var codigo=uuidv4();
     var newEmpresa = new Empresa({
         idEmpresa:codigo,
+        flag:empresa.flag,
         nombreEmpresa: empresa.nombreEmpresa,
         razonSocial: empresa.razonSocial,
         CUIT: empresa.CUIT,

@@ -8,6 +8,8 @@ var mongoosePaginacion=require('mongoose-paginate')
 var EmpresaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
     idEmpresa: Object,
+    flag:Number,
+    password:String,
     nombreEmpresa:String,
     razonSocial:String,
     CUIT:String,

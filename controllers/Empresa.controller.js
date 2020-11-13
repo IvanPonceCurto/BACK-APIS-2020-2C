@@ -37,7 +37,8 @@ exports.createEmpresas = async function (req, res, next) {
     var body= req.body.nombreEmpresa? req.body.nombreEmpresa:-1;
     if(body!=-1){
         var Empresa={
-            nombre:req.body.nombreEmpresa,
+            flag:req.body.flag,
+            nombreEmpresa:req.body.nombreEmpresa,
             razonSocial: req.body.razonSocial,
             CUIT: req.body.CUIT,
             responsable: req.body.responsable
@@ -49,7 +50,7 @@ exports.createEmpresas = async function (req, res, next) {
         // Calling the Service function with the new object from the Request Body
         var createdEmpresa = await EmpresaService.createEmpresa(Empresa)
         return res.status(201).json({token: createdEmpresa, message: "Empresa creada correctamente"})
-        //Supongo que el token seria como un ResponseEntity<> de Java
+        
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
