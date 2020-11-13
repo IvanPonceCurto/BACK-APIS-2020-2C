@@ -88,7 +88,7 @@ app.use(function (err, req, res, next) {
 });
 
 // Setup server port
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8080;
 // Escuchar en el puerto
 app.listen(port,()=>{
     console.log('Servidor iniciado en el puerto ',port);

@@ -52,7 +52,6 @@ exports.getUsersByMail = async function (req, res, next) {
 
 exports.createUser = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("llegue al controller",req.)
     var User = {
         nombreUsuario: req.body.nombreUsuario,
         flag:0,
