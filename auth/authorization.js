@@ -1,7 +1,3 @@
-/**
- * @type {Module jsonwebtoken|Module jsonwebtoken}
- * @author | Mohammad Raheem
- */
 var jwt = require('jsonwebtoken');
 var config = require('../config').config();
 
