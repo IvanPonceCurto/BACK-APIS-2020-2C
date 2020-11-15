@@ -1,7 +1,7 @@
 var moongose=require('mongoose')
 var mongoosePaginacion=require('mongoose-paginate');
-var empresa=require('./Empresa.model');
 var Encuesta = require("./Encuesta.model")
+var Empresa=require("./Empresa.model");
 //Ver porque tenemos que usar el .model
 
 var LanzamientoEncuestaSchema= new moongose.Schema({

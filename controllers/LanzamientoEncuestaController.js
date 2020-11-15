@@ -3,6 +3,7 @@ const Encuesta = require('../models/Encuesta.model');
 const LanzamientoEncuesta = require('../models/LanzamientoEncuesta.model');
 var LanzamientoEncuestaService= require('../services/LanzamientoEncuestaService');
 var EncuestaService = require ("../services/Encuesta.Service")
+var EmpresaService= require("../services/Empresa.Service")
 
 _this = this;
 
@@ -27,9 +28,25 @@ exports.getEncuestasLanzadas = async function (req, res, next) {
 exports.postLanzamientoEncuesta = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("ENTREEEE")
-   
-   
+        class EmpresaLista{
+            constructor(_id,nombreEmpresa){
+                this._id=_id;
+                this.nombreEmpresa=nombreEmpresa;
+            }
+        }
+        var lista=[]
+        console.log("Middleman",JSON.parse(req.body.listaEmpresasLanzadas));
+        var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
+        MiddleManObject.map((element=>{
+            var objetoPush=new EmpresaLista(element._id,element.nombreEmpresa)
+            console.log(objetoPush)
+            lista.push(objetoPush)
+        }))
      
+        
+        var listaEmpresas=await EmpresaService.getEmpresasById(req.body.listaEmpresasLanzadas._id);
+        console.log("Lo que busco fue:" ,listaEmpresas)
+
         var LanzamientoEncuesta={
             idUsuario:req.body.idUsuario,
             idEncuesta:req.body.idEncuesta,
@@ -37,7 +54,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             responsable:req.body.responsable,
             fecha:Date.now(),
             fechaVencimiento: req.body.fechaVencimiento,
-            listaEmpresasLanzadas: req.body.listaEmpresasLanzadas
+            listaEmpresasLanzadas:  lista//await listaIterar.map(async element=>{EmpresaService.getEmpresasById(element.idEmpresa)})
         }
         console.log("LISTA EMPRESASSS")
         console.log(LanzamientoEncuesta)
