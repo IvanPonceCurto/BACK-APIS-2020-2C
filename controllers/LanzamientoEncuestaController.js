@@ -27,8 +27,9 @@ exports.getEncuestasLanzadas = async function (req, res, next) {
 exports.postLanzamientoEncuesta = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("ENTREEEE")
-    var body= req.body.listaEmpresasLanzadas? req.body.listaEmpresasLanzadas:-1;
-    if(body!=-1){
+   
+   
+     
         var LanzamientoEncuesta={
             idUsuario:req.body.idUsuario,
             idEncuesta:req.body.idEncuesta,
@@ -38,13 +39,14 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             fechaVencimiento: req.body.fechaVencimiento,
             listaEmpresasLanzadas: req.body.listaEmpresasLanzadas
         }
+        console.log("LISTA EMPRESASSS")
         console.log(LanzamientoEncuesta)
-    }
+    
     
     try {
         
         var lanzamientoEncuesta = await LanzamientoEncuestaService.postEncuestasLanzamiento(LanzamientoEncuesta)
-        return res.status(201).json({token: lanzamientoEncuesta, message: "Empresa creada correctamente"})
+        return res.status(201).json({token: lanzamientoEncuesta, message: "Encuesta Lanzada correctamente"})
         //Supongo que el token seria como un ResponseEntity<> de Java
     } catch (e) {
         console.log("El error que tiro es: "+e)
