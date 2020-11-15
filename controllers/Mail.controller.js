@@ -11,7 +11,7 @@ exports.sendEmail = async function (req, res, next){
         service: 'Gmail',
         auth: {
             user: 'franciscofares23@gmail.com',//poner cuenta gmail
-            pass: process.env.CONTRASEÑA_MAGICA  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
+            pass: 'morita2010'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email
@@ -19,7 +19,7 @@ exports.sendEmail = async function (req, res, next){
         from: 'pruebalabs@gmail.com',
         to: req.body.destinatario,
         subject: req.body.asunto,
-        html: '<h1> y aca se muestra el texto  </h1><h3>' +req.body.texto+'</h3>',
+        html: '<h1> Observatorio Pyme  </h1><h3>' +req.body.texto+'</h3>',
         
     };
     console.log("mail",mailOptions)
@@ -28,9 +28,11 @@ exports.sendEmail = async function (req, res, next){
     {
         let info = await transporter.sendMail(mailOptions);
         console.log("Message sent: %s", info.messageId);
+        return res.status(201).json({ message: "Mail Lanzado correctamente"})
     }
     catch(error)
     {
-        console.log("Error envio mail: ",error);            
+        console.log("Error envio mail: ",error); 
+        return res.status(400).json({status: 400, message: "No se pudo mandar el mail"})           
     }
 };

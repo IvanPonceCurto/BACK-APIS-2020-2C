@@ -20,7 +20,7 @@ exports.getEmpresas = async function (req, res, next) {
     }
 }
 exports.getEmpresasById=async function (req,res){
-    var idEmpresa=req.params.id ? req.params.id:-1;
+    var idEmpresa=req.body.id ? req.body.id:-1;
     if(idEmpresa!=-1){
         try{
         var EmpresasReturn=await EmpresaService.getEmpresasById(idEmpresa);

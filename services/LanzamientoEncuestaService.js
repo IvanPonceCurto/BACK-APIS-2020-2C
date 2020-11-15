@@ -22,7 +22,7 @@ exports.postEncuestasLanzamiento=async function(encuesta){
         console.log("Encuesta lanzada correctamente!");
         return encuestaTraida;
     }catch(e){
-        throw new Error("Error al lanzar las encuestas")
+        throw new Error("Error al lanzar las encuestas"+ e)
     }
 }
 
