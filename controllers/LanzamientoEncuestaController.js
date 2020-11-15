@@ -27,7 +27,6 @@ exports.getEncuestasLanzadas = async function (req, res, next) {
 
 exports.postLanzamientoEncuesta = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("ENTREEEE")
         class EmpresaLista{
             constructor(_id,nombreEmpresa){
                 this._id=_id;
@@ -35,17 +34,16 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             }
         }
         var lista=[]
-        console.log("Middleman",JSON.parse(req.body.listaEmpresasLanzadas));
+        //console.log("Middleman",JSON.parse(req.body.listaEmpresasLanzadas));
         var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
         MiddleManObject.map((element=>{
             var objetoPush=new EmpresaLista(element._id,element.nombreEmpresa)
-            console.log(objetoPush)
             lista.push(objetoPush)
         }))
      
         
         var listaEmpresas=await EmpresaService.getEmpresasById(req.body.listaEmpresasLanzadas._id);
-        console.log("Lo que busco fue:" ,listaEmpresas)
+        //console.log("Lo que busco fue:" ,listaEmpresas)
 
         var LanzamientoEncuesta={
             idUsuario:req.body.idUsuario,
