@@ -50,7 +50,7 @@ exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta,flag){
     var listaEmpresasNuevas=lanzamientoEncuesta.listaEmpresasNuevas;
     var listaEmpresasBorrar=lanzamientoEncuesta.listaEmpresasBorrar;
 
-    console.log(id,listaEmpresasNuevas,listaEmpresasBorrar)
+    console.log(id,"-",listaEmpresasNuevas,"-",listaEmpresasBorrar)
 
     const miConjuntoDeEmpresas=new Set();
 
@@ -59,7 +59,7 @@ exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta,flag){
         console.log("El flag que usa es: " +flag)
         var oldEncuesta=await LanzamientoEncuesta.findById(id)
 
-        console.log(oldEncuesta)
+        console.log("La encuesta que encontro fue:" ,oldEncuesta)
 
         oldEncuesta.listaEmpresasLanzadas.map(element=>{
             miConjuntoDeEmpresas.add(element);
@@ -79,7 +79,7 @@ exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta,flag){
             var listaNueva=[]
             for (let i = 0; i < oldEncuesta.listaEmpresasLanzadas.length; i++) {
                 for (let j = 0; j < listaEmpresasBorrar.length; j++) {
-                    if(oldEncuesta.listaEmpresasLanzadas[i].nombre===listaEmpresasBorrar[j].nombre){
+                    if(oldEncuesta.listaEmpresasLanzadas[i].nombre===listaEmpresasBorrar[j].nombreEmpresa){
                         oldEncuesta.listaEmpresasLanzadas[i]="";
                         console.log("borro esto padreee")
                     }

@@ -3,7 +3,8 @@ const Encuesta = require('../models/Encuesta.model');
 const LanzamientoEncuesta = require('../models/LanzamientoEncuesta.model');
 var LanzamientoEncuestaService= require('../services/LanzamientoEncuestaService');
 var EncuestaService = require ("../services/Encuesta.Service")
-var EmpresaService= require("../services/Empresa.Service")
+var EmpresaService= require("../services/Empresa.Service");
+const cookieParser = require('cookie-parser');
 
 _this = this;
 
@@ -34,7 +35,6 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             }
         }
         var lista=[]
-        //console.log("Middleman",JSON.parse(req.body.listaEmpresasLanzadas));
         var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
         MiddleManObject.map((element=>{
             var objetoPush=new EmpresaLista(element._id,element.nombreEmpresa)
@@ -70,20 +70,20 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
 }
 
 exports.updateLanzamientoEncuesta = async function (req, res, next) {
-
+    var objetoRequest=JSON.parse(req.body.options)
+    console.log("El ID desde el back:",objetoRequest._id)
     // Id is necessary for the update
-    if (!req.body._id) {
-        return res.status(400).json({status: 400, message: "Id must be present"})
-    }
-
-    var idEncuestaLanzada= req.body._id; 
+    
+    
+    
+    var idEncuestaLanzada= objetoRequest._id; 
     var LanzamientoEncuesta = {
         idEncuestaLanzada,
-        listaEmpresasNuevas: req.body.listaEmpresasNuevas ? req.body.listaEmpresasNuevas : null,
-        listaEmpresasBorrar: req.body.listaEmpresasBorrar? req.body.listaEmpresasBorrar:null 
+        listaEmpresasNuevas: objetoRequest.listaEmpresasNuevas ? objetoRequest.listaEmpresasNuevas : null,
+        listaEmpresasBorrar: objetoRequest.listaEmpresasBorrar? objetoRequest.listaEmpresasBorrar:null 
     }   
     console.log("Lista de empresas nuevas:" +LanzamientoEncuesta.listaEmpresasNuevas)
-    console.log("Lista de empresas nuevas:" +LanzamientoEncuesta.listaEmpresasBorrar)
+    console.log("Lista de empresas borrar:" +LanzamientoEncuesta.listaEmpresasBorrar)
     
     try {
         var flag=req.headers.flag? req.headers.flag:-1
