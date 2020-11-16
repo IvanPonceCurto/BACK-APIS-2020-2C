@@ -11,7 +11,7 @@ exports.sendEmail = async function (req, res, next){
         service: 'Gmail',
         auth: {
             user: 'franciscofares23@gmail.com',//poner cuenta gmail
-            pass: 'morita2010'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
+            pass: 'aca va la contraseña'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email
