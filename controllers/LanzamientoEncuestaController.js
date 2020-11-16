@@ -69,30 +69,34 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
     }
 }
 
+
+
+
+
 exports.updateLanzamientoEncuesta = async function (req, res, next) {
-    var objetoRequest=JSON.parse(req.body.options)
-    console.log("El ID desde el back:",objetoRequest._id)
-    // Id is necessary for the update
+   
+    var idEmpresa = req.body.idEmpresa
+    var idEncuesta = req.body.idEncuesta
+
+    console.log("LO QUE LLEGA AL BACK")
+    console.log(idEmpresa)
+    console.log(idEncuesta)
     
     
-    
-    var idEncuestaLanzada= objetoRequest._id; 
-    var LanzamientoEncuesta = {
-        idEncuestaLanzada,
-        listaEmpresasNuevas: objetoRequest.listaEmpresasNuevas ? objetoRequest.listaEmpresasNuevas : null,
-        listaEmpresasBorrar: objetoRequest.listaEmpresasBorrar? objetoRequest.listaEmpresasBorrar:null 
-    }   
-    console.log("Lista de empresas nuevas:" +LanzamientoEncuesta.listaEmpresasNuevas)
-    console.log("Lista de empresas borrar:" +LanzamientoEncuesta.listaEmpresasBorrar)
     
     try {
         var flag=req.headers.flag? req.headers.flag:-1
-        var updatedLanzamientoEmpresa = await LanzamientoEncuestaService.updateLanzamientosEncuestas(LanzamientoEncuesta,flag)
+        var updatedLanzamientoEmpresa = await LanzamientoEncuestaService.updateLanzamientosEncuestas(idEncuesta,idEmpresa,flag)
         return res.status(200).json({status: 200, data: updatedLanzamientoEmpresa, message: "Encuesta actualizada correctamente"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
 }
+
+
+
+
+
 
 exports.removeLanzamiento = async function (req, res, next) {
 

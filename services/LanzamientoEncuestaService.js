@@ -1,6 +1,4 @@
-const LanzamientoEncuesta = require("../models/LanzamientoEncuesta.model")
-
-var lanzamientoEncuesta=require("../models/LanzamientoEncuesta.model").model
+var LanzamientoEncuesta = require("../models/LanzamientoEncuesta.model")
 
 _this=this
 
@@ -45,45 +43,28 @@ exports.getEncuestasLanzadas=async function(query){
     }
 }
 
-exports.updateLanzamientosEncuestas=async function(lanzamientoEncuesta,flag){
-    var id=lanzamientoEncuesta.idEncuestaLanzada;
-    var listaEmpresasNuevas=lanzamientoEncuesta.listaEmpresasNuevas;
-    var listaEmpresasBorrar=lanzamientoEncuesta.listaEmpresasBorrar;
-
-    console.log(id,"-",listaEmpresasNuevas,"-",listaEmpresasBorrar)
-
-    const miConjuntoDeEmpresas=new Set();
-
+exports.updateLanzamientosEncuestas=async function(idP,idE,flag){
+    var idEmpresa=idE
+    var idEncuesta=idP;
+    
+console.log("DESDE EL SERVICE")
+console.log(idEncuesta)
    
     try{
         console.log("El flag que usa es: " +flag)
-        var oldEncuesta=await LanzamientoEncuesta.findById(id)
+        var oldEncuesta=await LanzamientoEncuesta.findById(idEncuesta)
 
         console.log("La encuesta que encontro fue:" ,oldEncuesta)
 
-        oldEncuesta.listaEmpresasLanzadas.map(element=>{
-            miConjuntoDeEmpresas.add(element);
-        })
 
-
-        if(flag==="1"){
-            //Agrego las encuestas a la empresa
-            console.log("Entro al del add")
-            listaEmpresasNuevas.map((element)=>{
-                miConjuntoDeEmpresas.add(element)
-            })        
-            oldEncuesta.listaEmpresasLanzadas=Array.from(miConjuntoDeEmpresas)
-        }
         if(flag==="2"){
             console.log("Entro al del delete")
             var listaNueva=[]
             for (let i = 0; i < oldEncuesta.listaEmpresasLanzadas.length; i++) {
-                for (let j = 0; j < listaEmpresasBorrar.length; j++) {
-                    if(oldEncuesta.listaEmpresasLanzadas[i].nombre===listaEmpresasBorrar[j].nombreEmpresa){
+                    if(oldEncuesta.listaEmpresasLanzadas[i]._id===idEmpresa){
                         oldEncuesta.listaEmpresasLanzadas[i]="";
-                        console.log("borro esto padreee")
+                        console.log("AHI BORRE")
                     }
-                }
                 if(oldEncuesta.listaEmpresasLanzadas[i]!=""){
                     listaNueva.push(oldEncuesta.listaEmpresasLanzadas[i]);
                 }
