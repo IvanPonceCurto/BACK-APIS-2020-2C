@@ -1,0 +1,37 @@
+{
+    "idEncuesta":5,
+    "poll_title":"Encuesta de procesos",
+    "poll_state":"Confirmada",
+    "created":"2020-05-29",
+    "modified":"2020-06-01",
+    "questions":[{
+        "index":1,
+        "q_type":"short_text",
+        "value":"¿Cuantas unidades fabrica por día?",
+        "mandatory":true,
+        "options":[{}],
+        "filters":[{}],
+        "extenFilters":[{}],
+        "textFilters":[{"max_size":140}]
+    },
+    {
+        "index":2,
+        "q_type":"select",
+        "value":"¿Que tan conforme está con su proceso productivo?",
+        "mandatory":true,
+        "options":[{"option":"Poco"},{"option":"Regular"},{"option":"Muy"}],
+        "filters":[{}],
+        "extenFilters":[{}],
+        "textFilters":[{}]
+    },
+    {
+        "index":3,
+        "q_type":"long_text",
+        "value":"Describa su proceso productivo",
+        "mandatory":true,
+        "options":[{}],
+        "filters":[{}],
+        "extenFilters":[{}],
+        "textFilters":[{"max_size":2000}]
+    }]
+}

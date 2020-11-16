@@ -1,0 +1,111 @@
+{
+    "idEncuesta":151,
+    "userId":13,
+    "name":"Encuesta ejemplo",
+    "description":"poll desc.",
+    "status":"poll status",
+    "created":"2020-10-13",
+    "modified":"2020-10-16",
+    "sections":[
+        {
+            "sectionIndex":1,
+            "sectionTitle":"Sección 1",
+            "sectionDescription":"Descripción de la sección 1",
+            "questions":[
+                {
+                    "questionIndex":1,
+                    "questionTitle":"Esta es una pregunta TEXT",
+                    "questionType":"TEXT",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":true,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[]
+                },
+                {
+                    "questionIndex":2,
+                    "questionTitle":"Esta es una pregunta TEXT MULTILINE",
+                    "questionType":"TEXT",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":true,
+                    "multiline":true,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[]
+                }]
+        },
+        {
+            "sectionIndex":2,
+            "sectionTitle":"Sección 2",
+            "sectionDescription":"Descripción de la sección 2",
+            "questions":[
+                {
+                    "questionIndex":1,
+                    "questionTitle":"Esta es una pregunta SELECT",
+                    "questionType":"SELECT",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":false,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[{"option":"Esta es la opción 1"},{"option":"Esta es la opción 2"},{"option":"Esta es la opción 3"}]
+                },
+                {
+                    "questionIndex":2,
+                    "questionTitle":"Esta es una pregunta RADIO",
+                    "questionType":"RADIO",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":true,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[{"option":"Opción 1"},{"option":"Opción 2"},{"option":"Opción 3"}]
+                },
+                {
+                    "questionIndex":3,
+                    "questionTitle":"Esta es una pregunta CHECK",
+                    "questionType":"CHECK",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":false,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[{"option":"Opción 1"},{"option":"Opción 2"},{"option":"Opción 3"}]
+                },
+                {
+                    "questionIndex":4,
+                    "questionTitle":"Esta es una pregunta DATE",
+                    "questionType":"DATE",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":true,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[]
+                },
+                {
+                    "questionIndex":5,
+                    "questionTitle":"Esta es una pregunta FILE",
+                    "questionType":"FILE",
+                    "description": "Esta es la descripción de esta pregunta",
+                    "value":"",
+                    "mandatory":true,
+                    "multiline":false,
+                    "adornment":"",
+                    "restrictions":{},
+                    "options":[]
+                }     
+            ]
+        }
+    ],
+    "total":7,
+    "answered": 0,
+    "mandatory": 5
+}
