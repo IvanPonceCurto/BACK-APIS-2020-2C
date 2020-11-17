@@ -49,15 +49,11 @@ if (process.env.NODE_ENV === 'Development') {
 var mongoose = require('mongoose');
 const { env } = require('process');
 mongoose.Promise = bluebird;
-let url = 'mongodb://localhost:27017/apisTest'
-console.log("BD",url);
-let opts = {
-  useNewUrlParser : true, 
-  connectTimeoutMS:20000, 
-  useUnifiedTopology: true
-  };
+var urlBD = "mongodb+srv://admin:pruebaapi@backapi.2a0dj.mongodb.net/backend?retryWrites=true&w=majority"
+var opts = {useNewUrlParser : true, connectTimeoutMS:20000};
+console.log("BD",urlBD);
 
-mongoose.connect(url,opts)
+mongoose.connect(urlBD,opts)
   .then(() => {
     console.log(`Succesfully Connected to theMongodb Database..`)
   })

@@ -1,4 +1,5 @@
 var LanzamientoEncuesta = require("../models/LanzamientoEncuesta.model")
+var encuestasBD = require("../models/encuestaBD")
 
 _this=this
 
@@ -103,3 +104,15 @@ exports.deleteLanzamientoEmpresas= async function(encuestasLanzadas){
         throw new Error("No se pudo borrar la encuesta")
     }
 }
+
+exports.insertRespuesta = async function (dataBody)
+{
+    var newRespuesta = encuestasBD(dataBody);
+    try{
+        newRespuesta.save()
+        return ({message: "Respuesta agregada con éxito",DocumentoAgregado: newRespuesta}) //devuelvo resultado query 
+    }
+    catch(e){
+        throw Error("al insertar una respuesta")
+    }
+};

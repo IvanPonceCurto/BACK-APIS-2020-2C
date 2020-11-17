@@ -22,14 +22,16 @@ var sectionsSchema = new Schema({
 },{_id:false})
 
 var encuestaBDSchema = new Schema({
-    idEncuesta:Number,
-    userId:Number,
+    idEncuesta:Object,
+    userId:Object,
     name:String,
     description:String,
     status:String,
     created:Date,
     modified:Date,
-    sections:[sectionsSchema]
+    questions:Object,
+    answered:Number,
+    mandatory:Number
 },{collection:'respuestas'});
 
 var encuestasBD= mongoose.model('encuestaBD',encuestaBDSchema);

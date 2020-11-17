@@ -134,10 +134,7 @@ exports.createEncuesta = async function (encuesta) {
         descripcion:encuesta.descripcion,
         created:encuesta.created,
         modified:encuesta.modified,
-        preguntas:{
-        total: encuesta.total,
-        values: encuesta.values
-        }
+        preguntas:encuesta.preguntas
       
     })
     //Controller --> Service --> DAO (Le pega a la BDD) --> Schema de Mongo
@@ -154,13 +151,12 @@ exports.createEncuesta = async function (encuesta) {
 
 
 exports.getEncuestaById=async function(idEncuesta){
-    console.log("El id del Usuario por el que quiere buscar es: " , idEncuesta)
+    console.log("El id de la encuesta por el que quiere buscar es: " , idEncuesta)
     try{
         var EncuestaDevolver= await Encuesta.findById(idEncuesta)
         console.log(EncuestaDevolver)
         return EncuestaDevolver
     }catch(e){
-        throw new Error("Error al traer el usuario por el id");
+        throw new Error("Error al traer la encuesta por el id");
     }
 }
-

@@ -10,7 +10,7 @@ var UserSchema = new mongoose.Schema({
     apellido:String,
     password: String,
     date: Date
-})
+},{collection:'usuarios'})
 
 UserSchema.plugin(mongoosePaginate)
 const User = mongoose.model('User', UserSchema)

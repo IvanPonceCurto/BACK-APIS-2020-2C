@@ -3,6 +3,7 @@ var User = require('../models/User.model');
 var Empresa = require('../models/Empresa.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+require('dotenv')
 
 // Saving the context of this module inside the _the variable
 _this = this
