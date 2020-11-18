@@ -5,6 +5,7 @@ var LanzamientoEncuestaService= require('../services/LanzamientoEncuestaService'
 var EncuestaService = require ("../services/Encuesta.Service")
 var EmpresaService= require("../services/Empresa.Service");
 const cookieParser = require('cookie-parser');
+const { Mongoose } = require('mongoose');
 
 _this = this;
 
@@ -66,14 +67,14 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
                 }
             })
             var dataBody = {
-                idEncuesta: parseInt(""+elem._id+enc.idEncuesta, 10),
+                idEncuesta: Math.floor(Math.random()*100000)+1,
                 userId: elem._id,
                 name: enc.tituloEncuesta,
                 description: enc.descripcion,
                 status: enc.estadoEncuesta,
                 created: enc.created,
                 modified: enc.modified,
-                sections: enc.preguntas,
+                questions: enc.preguntas,
                 total: enc.preguntas.total,
                 answered: 0,
                 mandatory: auxMand
