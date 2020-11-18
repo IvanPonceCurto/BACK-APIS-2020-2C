@@ -1,6 +1,6 @@
 const e = require('express');
 var encuestasBD = require('../models/encuestaBD');
-
+var LanzamientoEncuesta = require('../models/LanzamientoEncuesta.model')
 exports.getRespuestas = async function ()
 {
     try{
@@ -28,6 +28,22 @@ exports.getRespuestaSingle = async function(userId)
         throw Error("al cargar las respuestas del user solicitado");
     }
 };
+
+exports.deleteRespuesta = async function (idEncuesta,idEmpresa) {
+
+    // Delete the User
+    try {
+
+        var deleted = await encuestasBD.find({idEncuesta:idEncuesta,userId: idEmpresa})
+       
+      
+        var eliminar = await encuestasBD.deleteOne(deleted._id)
+       
+        return eliminar;
+    } catch (e) {
+        throw Error("Error Occured while Deleting the Respuesta")
+    }
+}
 
 exports.getRespuestaSingleSinResp = async function(query)
 {

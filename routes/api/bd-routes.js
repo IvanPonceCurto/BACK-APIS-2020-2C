@@ -23,6 +23,10 @@ router.post('/respuestas/user', function(req, res)
     bdController.getRespuestaSingle(req, res);
 });
 
+router.post('/eliminarRespuesta', function(req,res){
+    bdController.deleteRespuesta(req,res)
+})
+
 //EndPoint para leer todas las respuestas de un usuario que no estén respondidas
 router.post('/respuestas/user/notCompleted', function(req, res)
 {

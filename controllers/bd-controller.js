@@ -75,6 +75,21 @@ exports.insertRespuesta = async function (req, res)
     }
 };
 
+exports.deleteRespuesta = async function (req, res)
+{
+    var idEncuesta = req.body.idEncuesta;
+    var idEmpresa = req.body.idEmpresa;
+    try{
+        var deleted = await bdService.deleteRespuesta(idEncuesta,idEmpresa)
+        res.status(200).send("Succesfully Deleted... ");
+    }
+    catch(e){
+        throw new Error(e)
+    }
+};
+
+
+
 exports.updateRespuesta = async function (req,res) 
 {
     try{
