@@ -56,10 +56,7 @@ exports.createEncuesta = async function (req, res, next) {
                 descripcion:req.body.descripcion,
                 created:req.body.created,
                 modified:req.body.modified,
-                preguntas:{
-                total: req.body.total,
-                values: req.body.values
-                }
+                preguntas:req.body.preguntas
            
         }
     }

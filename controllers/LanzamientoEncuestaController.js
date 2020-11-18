@@ -5,6 +5,7 @@ var LanzamientoEncuestaService= require('../services/LanzamientoEncuestaService'
 var EncuestaService = require ("../services/Encuesta.Service")
 var EmpresaService= require("../services/Empresa.Service");
 const cookieParser = require('cookie-parser');
+const { Mongoose } = require('mongoose');
 
 _this = this;
 
@@ -37,12 +38,12 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
         var lista=[]
         var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
         MiddleManObject.map((element=>{
-            var objetoPush=new EmpresaLista(element._id,element.nombreEmpresa)
+            var objetoPush=new Object({_id: element._id,nombreEmpresa: element.nombreEmpresa})
             lista.push(objetoPush)
         }))
      
         
-        var listaEmpresas=await EmpresaService.getEmpresasById(req.body.listaEmpresasLanzadas._id);
+        //var listaEmpresas=await EmpresaService.getEmpresasById(req.body.listaEmpresasLanzadas._id);
         //console.log("Lo que busco fue:" ,listaEmpresas)
 
         var LanzamientoEncuesta={
@@ -54,12 +55,32 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             fechaVencimiento: req.body.fechaVencimiento,
             listaEmpresasLanzadas:  lista//await listaIterar.map(async element=>{EmpresaService.getEmpresasById(element.idEmpresa)})
         }
-        console.log("LISTA EMPRESASSS")
-        console.log(LanzamientoEncuesta)
-    
     
     try {
-        
+        var enc = await EncuestaService.getEncuestaById(LanzamientoEncuesta.idEncuesta)
+        LanzamientoEncuesta.listaEmpresasLanzadas.map(elem =>{
+            console.log(elem.preguntas)
+            let auxMand = 0
+            enc.preguntas.questions.map(elem =>{
+                if(elem.mandatory === true){
+                    auxMand++
+                }
+            })
+            var dataBody = {
+                idEncuesta: Math.floor(Math.random()*100000)+1,
+                userId: elem._id,
+                name: enc.tituloEncuesta,
+                description: enc.descripcion,
+                status: enc.estadoEncuesta,
+                created: enc.created,
+                modified: enc.modified,
+                questions: enc.preguntas,
+                total: enc.preguntas.total,
+                answered: 0,
+                mandatory: auxMand
+            }
+            LanzamientoEncuestaService.insertRespuesta(dataBody);
+        })
         var lanzamientoEncuesta = await LanzamientoEncuestaService.postEncuestasLanzamiento(LanzamientoEncuesta)
         return res.status(201).json({token: lanzamientoEncuesta, message: "Encuesta Lanzada correctamente"})
         //Supongo que el token seria como un ResponseEntity<> de Java

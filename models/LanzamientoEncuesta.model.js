@@ -2,6 +2,7 @@ var moongose=require('mongoose')
 var mongoosePaginacion=require('mongoose-paginate');
 var Encuesta = require("./Encuesta.model")
 var Empresa=require("./Empresa.model");
+const { collection } = require('./User.model');
 //Ver porque tenemos que usar el .model
 
 var LanzamientoEncuestaSchema= new moongose.Schema({
@@ -14,7 +15,7 @@ var LanzamientoEncuestaSchema= new moongose.Schema({
     fechaVencimiento:Date,
     listaEmpresasLanzadas:[]
     //FIJARSE SI SE PUEDE DEFINIR UN ARRAYLIST<EMPRESAS>
-})
+},{collection:'lanzamientoEncuesta'})
 
 LanzamientoEncuestaSchema.plugin(mongoosePaginacion)
 

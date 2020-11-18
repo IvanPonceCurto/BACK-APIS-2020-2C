@@ -49,26 +49,11 @@ if (process.env.NODE_ENV === 'Development') {
 var mongoose = require('mongoose');
 const { env } = require('process');
 mongoose.Promise = bluebird;
-var url = "mongodb+srv://admin:pruebaapi@backapi.2a0dj.mongodb.net/backend?retryWrites=true&w=majority"
-console.log("BD",url);
-let opts = {
-  useNewUrlParser : true, 
-  connectTimeoutMS:20000
-  };
+var urlBD = "mongodb+srv://admin:pruebaapi@backapi.2a0dj.mongodb.net/backend?retryWrites=true&w=majority"
+var opts = {useNewUrlParser : true, connectTimeoutMS:20000};
+console.log("BD",urlBD);
 
-
-  mongoose.connect(url, opts)
-  .then
-      (
-          ()=>{
-              console.log("Conectado");
-          },
-          err =>{
-              console.log("Error: " + err)
-          }
-      );
-
-/*mongoose.connect(url,opts)
+mongoose.connect(urlBD,opts)
   .then(() => {
     console.log(`Succesfully Connected to theMongodb Database..`)
   })
@@ -79,7 +64,7 @@ let opts = {
 // catch 404 and forward to error handler 
 app.use(function (req, res, next) {
   next(createError(404));
-});*/
+});
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:"+process.env.PORT);

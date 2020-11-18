@@ -17,7 +17,7 @@ var EmpresaSchema= new moongose.Schema({
     responsable:{},
     timestamp:Date
 
-})
+},{collection:'empresas'})
 
 EmpresaSchema.plugin(mongoosePaginacion)
 

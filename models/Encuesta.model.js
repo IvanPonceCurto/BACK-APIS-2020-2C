@@ -3,8 +3,6 @@ const { static } = require('express')
 var moongose=require('mongoose')
 var mongoosePaginacion=require('mongoose-paginate')
 
-
-
 var EncuestaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
     idEncuesta: Object,
@@ -15,12 +13,23 @@ var EncuestaSchema= new moongose.Schema({
     modified:Date,
     preguntas:{
         total:Number,
-        preguntas:Object
+        questions:[{
+            questionIndex:Number,
+            questionTitle:String,
+            questionType:String,
+            description:String,
+            value:String,
+            mandatory:Boolean,
+            multiline:Boolean,
+            adornment:String,
+            restrictions:{min:Number,max:Number},
+            options:[{option:String}]
+        }]
         
     },
     timestamp:Date
 
-})
+},{collection:'encuestas'})
 
 EncuestaSchema.plugin(mongoosePaginacion)
 
