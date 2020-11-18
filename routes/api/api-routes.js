@@ -1,6 +1,7 @@
 let router = require('express').Router();
 let apiController = require('../controllers/api-controller');
 
+
 router.get('/', function (req, res) 
 {
     res.json(
@@ -10,7 +11,7 @@ router.get('/', function (req, res)
 });
 
 //EndPoint para leer las encuestas que nos pase Crear Encuestas
-router.get('/encuestas', function(req, res){
+router.get('/encuestas/LL', function(req, res){
     console.log("Leer encuestas");
     apiController.getEncuestas(req, res);//uso el controller, acá esta codeado qué tiene que hacer
 });

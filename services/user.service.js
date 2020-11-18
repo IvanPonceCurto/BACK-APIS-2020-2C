@@ -61,8 +61,10 @@ exports.createUser = async function (user) {
     console.log("El usuario que guarda es:"+newUser)
 
     try {
+        console.log("entre al try")
         // Saving the User 
         var savedUser = await newUser.save();
+
         var token = jwt.sign({
             id: savedUser._id
         }, process.env.SECRET, {

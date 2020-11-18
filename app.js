@@ -61,6 +61,9 @@ mongoose.connect(urlBD,opts)
     console.log(`Error Connecting to the Mongodb Database...`),
     console.log(e)
   })
+
+
+  
 // catch 404 and forward to error handler 
 app.use(function (req, res, next) {
   next(createError(404));

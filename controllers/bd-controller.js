@@ -32,8 +32,11 @@ exports.getRespuestaSingle = async function(req, res)
 exports.getRespuestaSingleSinResp = async function(req, res)
 {
     try{
+        console.log('ESTOY EN EL CONTROLLER')
+        console.log(req)
         let query = {userId: req.body.userId, status:{$ne: "completed"}};
         var result = await bdService.getRespuestaSingleSinResp(query)
+        
         return res.status(200).send(result)
     }catch(e){
         return res.status(500).send(e);

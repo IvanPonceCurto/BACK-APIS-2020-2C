@@ -20,6 +20,7 @@ exports.getRespuestaSingle = async function(userId)
         console.log(userId);
         var listaRespuestas = await encuestasBD.find(userId,function(err,listaRespuestas)
         {
+            console.log(listaRespuestas)
             return listaRespuestas; //devuelvo resultado query   
         })
         return listaRespuestas
@@ -34,7 +35,8 @@ exports.getRespuestaSingleSinResp = async function(query)
         console.log(query);
         var listaRespuestas = await encuestasBD.find(query,function(err,listaRespuestas)
         {
-            return listaRespuestas; //devuelvo resultado query   
+                return listaRespuestas
+            
         })
         return listaRespuestas
     }catch(e){
