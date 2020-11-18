@@ -1,5 +1,6 @@
 let router = require('express').Router();
-let bdController = require('../controllers/bd-controller');
+let bdController = require('../../controllers/bd-controller'); 
+let apiController = require('../../controllers/api-controller');
 
 router.get('/', function (req, res) 
 {
@@ -8,7 +9,7 @@ router.get('/', function (req, res)
        status: 'Funcionando',
     });
 });
-
+ 
 //EndPoint para leer todas las respuestas en la bd
 router.get('/respuestas', function(req, res){
     console.log("Leer respuestas");
@@ -63,5 +64,8 @@ router.post('/uploadFile', function(req,res)
 {
     bdController.uploadFile(req, res)
 })
-
+router.get('/encuestas', function(req, res){
+    console.log("Leer encuestas");
+    apiController.getEncuestas(req, res);//uso el controller, acá esta codeado qué tiene que hacer
+});
 module.exports = router;
