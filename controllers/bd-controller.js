@@ -102,16 +102,25 @@ exports.obtenerRespuesta = async function (req, res)
     }
 };
 
-
-
 exports.updateRespuesta = async function (req,res) 
 {
     try{
-        let query = {idEncuesta: req.body.idEncuesta}
-        let sectionIndex = req.body.sectionIndex
+        let idEncuesta = req.body.idEncuesta
         let questionIndex = req.body.questionIndex
         let value = req.body.value
-        var results = await bdService.updateRespuesta(query, sectionIndex, questionIndex, value)
+        var results = await bdService.updateRespuesta(idEncuesta, questionIndex, value)
+        return res.status(200).send(results)
+    }catch(e){
+        console.log(e)
+        return res.status(500).send(e)
+    }
+}
+
+exports.respondidas = async function (req, res)
+{
+    try{
+        let idEncuesta = req.body.idEncuesta
+        var results = await bdService.respondidas(idEncuesta)
         return res.status(200).send(results)
     }catch(e){
         console.log(e)

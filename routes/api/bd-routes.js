@@ -61,6 +61,12 @@ router.post('/updateRespuesta',function(req,res)
     bdController.updateRespuesta(req,res);
 });
 
+//EndPoint para actualizar las respondidas
+router.post('/respondidas', function (req, res)
+{
+    bdController.respondidas(req, res)
+})
+
 //EndPoint para actualizar el estado de una encuesta a "completed"
 router.post('/updateEncuesta',function(req, res)
 {

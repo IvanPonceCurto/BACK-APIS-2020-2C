@@ -7,6 +7,7 @@ var bluebird = require('bluebird');
 var fs = require('fs');
 
 //incorporo cors
+var bodyParser = require('body-parser');
 var cors = require('cors');
 
 //importo router
@@ -28,6 +29,11 @@ app.use(express.urlencoded({
 }));
 
 //aplico cors
+app.use(bodyParser.urlencoded(
+  {
+      extended: true
+  }));
+app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

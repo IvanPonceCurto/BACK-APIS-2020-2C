@@ -47,12 +47,14 @@ exports.deleteRespuesta = async function (idEncuesta,idEmpresa,idLanzamiento) {
     }
 }
 
-exports.obtenerRespuesta = async function (idEmpresa,idLanzamiento) {
+exports.obtenerRespuesta = async function (idEmpresa,idLanzamiento1) {
 
     // Delete the User
     try {
 
-        var deleted = await encuestasBD.findOne({idLanzamiento:idLanzamiento,userId: idEmpresa})
+        var deleted = await encuestasBD.findOne({idLanzamiento:idLanzamiento1,userId: idEmpresa})
+        console.log("ACA ESTA EL DELETED")
+        console.log(deleted)
         /*
        console.log("ELIMINAR ESTA")
       console.log(deleted)
@@ -105,13 +107,33 @@ exports.insertRespuesta = async function (dataBody)
     }
 };
 
-exports.updateRespuesta = async function (query,sectionIndex,questionIndex,value) 
+exports.updateRespuesta = async function (idEncuesta,questionIndex,value) 
 {
+    id = parseInt(idEncuesta, 10)   
+    console.log(id)
+    console.log("questionIndex: "+questionIndex)
+    console.log("value: "+value)
     try{
-        await encuestasBD.findOneAndUpdate(query,{$set: {"sections.$[s].questions.$[q].value": value}},{arrayFilters: [{"s.sectionIndex": sectionIndex},{"q.questionIndex": questionIndex}]})
+        await encuestasBD.findOneAndUpdate({idEncuesta: id},{$set: {"questions.questions.$[q].value": value}},{arrayFilters: [{"q.questionIndex": questionIndex}]})
         return {message: "Respuesta actualizada con éxito"}
     }catch(e){
         throw Error("al actualizar la respuesta")
+    }
+}
+
+exports.respondidas = async function (idEncuesta) 
+{
+    try{
+        let id = parseInt(idEncuesta, 10)
+        var res = await encuestasBD.aggregate([{$match: {idEncuesta: id}},{$project: {_id: 0, "questions.questions.value":1}},{$unwind: "$questions"},{$unwind: "$questions.questions"},
+        {$match:{"questions.questions.value": ""}},{$count: "cuenta"}])
+        var f = await encuestasBD.findOne({idEncuesta: idEncuesta})
+        let r = f.questions.total - res[0].cuenta
+        await encuestasBD.findOneAndUpdate({idEncuesta: idEncuesta},{$set:{answered:r}})
+        return {"message": "Cantidad de respuestas respondidas actualizado con éxito"}
+    }catch(e){
+        console.log(e)
+        throw Error("al actualizar el estado de respondidas")
     }
 }
 

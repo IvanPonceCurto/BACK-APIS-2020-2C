@@ -73,7 +73,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             var dataBody = {
                 idEncuesta: lanzamientoEncuesta.idEncuesta,
                 idLanzamiento: (lanzamientoEncuesta._id).toString(),
-                userId: elem._id,
+                userId: elem.idEmpresa,
                 name: enc.tituloEncuesta,
                 description: enc.descripcion,
                 status: enc.estadoEncuesta,
