@@ -29,17 +29,35 @@ exports.getRespuestaSingle = async function(userId)
     }
 };
 
-exports.deleteRespuesta = async function (idEncuesta,idEmpresa) {
+exports.deleteRespuesta = async function (idEncuesta,idEmpresa,idLanzamiento) {
 
     // Delete the User
     try {
 
-        var deleted = await encuestasBD.find({idEncuesta:idEncuesta,userId: idEmpresa})
-       
-      
-        var eliminar = await encuestasBD.deleteOne(deleted._id)
-       
-        return eliminar;
+        var deleted = await encuestasBD.findOneAndDelete({idLanzamiento:idLanzamiento,userId: idEmpresa})
+        /*
+       console.log("ELIMINAR ESTA")
+      console.log(deleted)
+        var eliminar = await encuestasBD.remove(deleted._id)
+       */
+        return deleted;
+    } catch (e) {
+        throw Error("Error Occured while Deleting the Respuesta")
+    }
+}
+
+exports.obtenerRespuesta = async function (idEmpresa,idLanzamiento) {
+
+    // Delete the User
+    try {
+
+        var deleted = await encuestasBD.findOne({idLanzamiento:idLanzamiento,userId: idEmpresa})
+        /*
+       console.log("ELIMINAR ESTA")
+      console.log(deleted)
+        var eliminar = await encuestasBD.remove(deleted._id)
+       */
+        return deleted;
     } catch (e) {
         throw Error("Error Occured while Deleting the Respuesta")
     }

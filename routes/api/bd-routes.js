@@ -27,6 +27,10 @@ router.post('/eliminarRespuesta', function(req,res){
     bdController.deleteRespuesta(req,res)
 })
 
+router.post('/obtenerRespuesta', function(req,res){
+    bdController.obtenerRespuesta(req,res)
+})
+
 //EndPoint para leer todas las respuestas de un usuario que no estén respondidas
 router.post('/respuestas/user/notCompleted', function(req, res)
 {

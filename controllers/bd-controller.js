@@ -58,7 +58,9 @@ exports.getRespuestaById = async function (req, res)
 exports.insertRespuesta = async function (req, res)
 {
     try{
-        var dataBody = {idEncuesta: req.body.idEncuesta,
+        var dataBody = {
+        idEncuesta: req.body.idEncuesta,
+        idLanzamiento: req.body.idLanzamiento,
         userId: req.body.userId,
         name: req.body.name,
         description: req.body.description,
@@ -79,9 +81,23 @@ exports.deleteRespuesta = async function (req, res)
 {
     var idEncuesta = req.body.idEncuesta;
     var idEmpresa = req.body.idEmpresa;
+    var idLanzamiento = req.body.idLanzamiento
     try{
-        var deleted = await bdService.deleteRespuesta(idEncuesta,idEmpresa)
+        var deleted = await bdService.deleteRespuesta(idEncuesta,idEmpresa,idLanzamiento)
         res.status(200).send("Succesfully Deleted... ");
+    }
+    catch(e){
+        throw new Error(e)
+    }
+};
+
+exports.obtenerRespuesta = async function (req, res)
+{
+    var idEmpresa = req.body.idEmpresa;
+    var idLanzamiento = req.body.idLanzamiento
+    try{
+        var deleted = await bdService.obtenerRespuesta(idEmpresa,idLanzamiento)
+        return res.status(200).json({status: 200, data: deleted, message: "Respuesta devuelta exitosamente"});
     }
     catch(e){
         throw new Error(e)

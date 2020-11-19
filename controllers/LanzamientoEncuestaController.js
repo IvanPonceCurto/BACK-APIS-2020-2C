@@ -55,10 +55,14 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             fechaVencimiento: req.body.fechaVencimiento,
             listaEmpresasLanzadas:  lista//await listaIterar.map(async element=>{EmpresaService.getEmpresasById(element.idEmpresa)})
         }
+
     
     try {
-        var enc = await EncuestaService.getEncuestaById(LanzamientoEncuesta.idEncuesta)
-        LanzamientoEncuesta.listaEmpresasLanzadas.map(elem =>{
+
+        var lanzamientoEncuesta = await LanzamientoEncuestaService.postEncuestasLanzamiento(LanzamientoEncuesta)
+
+        var enc = await EncuestaService.getEncuestaById(lanzamientoEncuesta.idEncuesta)
+        lanzamientoEncuesta.listaEmpresasLanzadas.map(elem =>{
             console.log(elem.preguntas)
             let auxMand = 0
             enc.preguntas.questions.map(elem =>{
@@ -67,7 +71,8 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
                 }
             })
             var dataBody = {
-                idEncuesta: Math.floor(Math.random()*100000)+1,
+                idEncuesta: lanzamientoEncuesta.idEncuesta,
+                idLanzamiento: (lanzamientoEncuesta._id).toString(),
                 userId: elem._id,
                 name: enc.tituloEncuesta,
                 description: enc.descripcion,
@@ -81,7 +86,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             }
             LanzamientoEncuestaService.insertRespuesta(dataBody);
         })
-        var lanzamientoEncuesta = await LanzamientoEncuestaService.postEncuestasLanzamiento(LanzamientoEncuesta)
+        
         return res.status(201).json({token: lanzamientoEncuesta, message: "Encuesta Lanzada correctamente"})
         //Supongo que el token seria como un ResponseEntity<> de Java
     } catch (e) {

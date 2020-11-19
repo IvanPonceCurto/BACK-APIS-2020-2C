@@ -23,6 +23,7 @@ var sectionsSchema = new Schema({
 
 var encuestaBDSchema = new Schema({
     idEncuesta:Object,
+    idLanzamiento: Object,
     userId:Object,
     name:String,
     description:String,
