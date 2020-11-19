@@ -45,7 +45,7 @@ exports.getRespuestaSingleSinResp = async function(req, res)
 exports.getRespuestaById = async function (req, res)
 {
     try{
-        let idEncuesta = {idEncuesta: req.body.idEncuesta};
+        let idEncuesta = {_id: req.body.idEncuesta};
         var results = await bdService.getRespuestaById(idEncuesta)
         return res.status(200).send(results); //devuelvo resultado query   
     }catch(e){
@@ -131,7 +131,7 @@ exports.respondidas = async function (req, res)
 exports.updateEncuesta = async function (req, res)
 {
     try{
-        let idEncuesta = {idEncuesta: req.body.idEncuesta}
+        let idEncuesta = req.body.idEncuesta
         var results = await bdService.updateEncuesta(idEncuesta)
         return res.status(200).send(results)
     }catch(e){

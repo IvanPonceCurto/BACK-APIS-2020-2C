@@ -1,6 +1,7 @@
 const e = require('express');
 var encuestasBD = require('../models/encuestaBD');
 var userProfile = require('../models/userProfile.model');
+var mongoose = require('mongoose')
 
 exports.getRespuestas = async function ()
 {
@@ -108,13 +109,9 @@ exports.insertRespuesta = async function (dataBody)
 };
 
 exports.updateRespuesta = async function (idEncuesta,questionIndex,value) 
-{
-    id = parseInt(idEncuesta, 10)   
-    console.log(id)
-    console.log("questionIndex: "+questionIndex)
-    console.log("value: "+value)
+{   
     try{
-        await encuestasBD.findOneAndUpdate({idEncuesta: id},{$set: {"questions.questions.$[q].value": value}},{arrayFilters: [{"q.questionIndex": questionIndex}]})
+        await encuestasBD.findOneAndUpdate({_id: idEncuesta},{$set: {"questions.questions.$[q].value": value}},{arrayFilters: [{"q.questionIndex": questionIndex}]})
         return {message: "Respuesta actualizada con éxito"}
     }catch(e){
         throw Error("al actualizar la respuesta")
@@ -124,23 +121,23 @@ exports.updateRespuesta = async function (idEncuesta,questionIndex,value)
 exports.respondidas = async function (idEncuesta) 
 {
     try{
-        let id = parseInt(idEncuesta, 10)
-        var res = await encuestasBD.aggregate([{$match: {idEncuesta: id}},{$project: {_id: 0, "questions.questions.value":1}},{$unwind: "$questions"},{$unwind: "$questions.questions"},
+        var res = await encuestasBD.aggregate([{$match: {_id: mongoose.Types.ObjectId(idEncuesta)}},{$project: {_id: 0, "questions.questions.value":1}},{$unwind: "$questions"},{$unwind: "$questions.questions"},
         {$match:{"questions.questions.value": ""}},{$count: "cuenta"}])
-        var f = await encuestasBD.findOne({idEncuesta: idEncuesta})
+        var f = await encuestasBD.findById(idEncuesta)
         let r = f.questions.total - res[0].cuenta
-        await encuestasBD.findOneAndUpdate({idEncuesta: idEncuesta},{$set:{answered:r}})
-        return {"message": "Cantidad de respuestas respondidas actualizado con éxito"}
+        await encuestasBD.findOneAndUpdate({_id: idEncuesta},{$set:{answered:r}})
+        return {message:"todo ok"}
     }catch(e){
         console.log(e)
         throw Error("al actualizar el estado de respondidas")
     }
 }
+/**/ 
 
 exports.updateEncuesta = async function (idEncuesta)
 {
     try{
-        await encuestasBD.findOneAndUpdate(idEncuesta,{$set:{status:"completed"}})
+        await encuestasBD.findOneAndUpdate({_id: idEncuesta},{$set:{status:"completed"}})
         return {message: "Estado de la encuesta actualizado con éxito"}
     }catch(e){
         throw Error("al actualizar el estado de la encuesta")

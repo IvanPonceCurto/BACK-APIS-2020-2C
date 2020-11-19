@@ -1,0 +1,136 @@
+{
+    "_id": "id ejemplo",
+    "poll_title": "titulo ejemplo",
+    "poll_state": "borrador",
+    "description": "descripcion ejemplo",
+    "created": "12/12/2020",
+    "modified": "14/01/2021",
+    "questions":{ 
+        "total": 12,
+        "values":[
+            {
+                "id": 1129037889123,
+                "index": 1,
+                "q_type": "select",
+                "value": "pregunta ejemplo",
+                "mandatory": true,
+                "options": [
+                    "opcion ejemplo 1", "opcion ejemplo 2", "opcion ejemplo 3"
+                   ]
+            },
+            {
+                "id": 90128932714902,
+                "index": 2,
+                "q_type": "calificacion",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": true,
+                "filters": {
+                    "min": 123,
+                    "max": 321
+                }
+
+            },
+            {
+                "id": 7028374089237408971238490780912374,
+                "index": 3,
+                "q_type": "img",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": true,
+                "filters": {
+                    "extensions": ["png", "jpeg"],
+                    "max_size": "100 mb"
+                }
+            },
+            {
+                "id": 190239012398124890124124,
+                "index": 4,
+                "q_type": "short_text",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": false,
+                "filters": {
+                    "max_size": "140"
+                }
+            },
+            {
+                "id": 190230128904189024890124,
+                "index": 5,
+                "q_type": "long_text",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": true,
+                "filters": {
+                    "max_size": "2000"
+                }
+            },
+            {
+                "id": 1129037813223,
+                "index": 6,
+                "q_type": "email",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": false,
+                "filters": {
+                    "max_size": "300"
+                }
+            },
+            {
+                "id": 1129037880023,
+                "index": 7,
+                "q_type": "range_number",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": false,
+                "filters": {
+                    "min": 123,
+                    "max": 321
+                }
+            },
+            {
+                "id": 1129037889,
+                "index": 8,
+                "q_type": "number",
+                "value":"pregunta de ejmplo 2"
+                "mandatory": true,
+            },
+            {
+                "id": 112903788912,
+                "index": 9,
+                "q_type": "true_false",
+                "value": "pregunta de ejemplo 2"
+                "mandatory": true,
+            },
+            {
+                "id": 1129037889123,
+                "index": 10,
+                "q_type": "radio",
+                "value": "pregunta ejemplo",
+                "mandatory": true,
+                "options": [
+                    "opcion ejemplo 1", "opcion ejemplo 2", "opcion ejemplo 3"
+                   ]
+            },
+            {
+                "id": 1129037889123,
+                "index": 11,
+                "q_type": "check",
+                "value": "pregunta ejemplo",
+                "mandatory": false,
+                "options": [
+                    "opcion ejemplo 1", "opcion ejemplo 2", "opcion ejemplo 3"
+                   ]
+            },
+            {
+                "id": 7028374089237408971238490780912374,
+                "index": 12,
+                "q_type": "file",
+                "value":"pregunta de ejmplo 2",
+                "mandatory": false,
+                "filters": {
+                    "extensions": ["pdf", "docx", "csv"],
+                    "max_size": "100 mb"
+                }
+            }
+        ]
+    }
+        
+}
+
+
+
