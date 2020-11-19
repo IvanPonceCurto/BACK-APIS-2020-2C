@@ -138,7 +138,7 @@ exports.removeLanzamiento = async function (req, res, next) {
         }
     }else{
     
-        return res.status(400).json({status: 400, message: e.message})
+        return res.status(400).json({status: 400, message:"debes pasar el idLanzamiento por header"})
     }
 }
 

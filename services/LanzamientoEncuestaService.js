@@ -88,20 +88,12 @@ console.log(idEncuesta)
 
 
 
-exports.deleteLanzamientoEmpresas= async function(encuestasLanzadas){
+exports.deleteLanzamientoEmpresas= async function(idLanzamiento){
     try{
-        var id=encuestasLanzadas
-        console.log("La encuesta que va a borrar es:" ,id)
-        
-        var borrar=await LanzamientoEncuesta.remove({
-            _id:id
-        })
-        if(borrar.n===0 && borrar.ok===1){
-            throw new Error("La encuesta no pudo ser borrada")
-        }
-        return 1;
+        var deleted = await LanzamientoEncuesta.findByIdAndDelete(idLanzamiento)
+        return deleted;
     }catch(e){
-        throw new Error("No se pudo borrar la encuesta")
+        throw new Error("ocurrio un error")
     }
 }
 
