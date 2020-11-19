@@ -72,4 +72,22 @@ router.get('/encuestas', function(req, res){
     console.log("Leer encuestas");
     apiController.getEncuestas(req, res);//uso el controller, acá esta codeado qué tiene que hacer
 });
+
+//EndPoint para crear un perfil de usuario
+router.post('/createUser', function(req, res)
+{
+    bdController.createUser(req, res)
+})
+
+//EndPoint para buscar un usuario
+router.post('/getUser', function(req, res)
+{
+    bdController.getUser(req, res)
+})
+
+//EndPoint para actualizar un perfil
+router.post('/updateProfile', function(req, res)
+{
+    bdController.updateProfile(req, res)
+})
 module.exports = router;

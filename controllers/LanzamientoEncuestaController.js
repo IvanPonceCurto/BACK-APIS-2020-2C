@@ -38,7 +38,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
         var lista=[]
         var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
         MiddleManObject.map((element=>{
-            var objetoPush=new Object({_id: element._id,nombreEmpresa: element.nombreEmpresa})
+            var objetoPush=new Object({_id: element._id,idEmpresa: element.idEmpresa, nombreEmpresa: element.nombreEmpresa})
             lista.push(objetoPush)
         }))
      
@@ -59,7 +59,6 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
     try {
         var enc = await EncuestaService.getEncuestaById(LanzamientoEncuesta.idEncuesta)
         LanzamientoEncuesta.listaEmpresasLanzadas.map(elem =>{
-            console.log(elem.preguntas)
             let auxMand = 0
             enc.preguntas.questions.map(elem =>{
                 if(elem.mandatory === true){
@@ -68,7 +67,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
             })
             var dataBody = {
                 idEncuesta: Math.floor(Math.random()*100000)+1,
-                userId: elem._id,
+                userId: elem.idEmpresa,
                 name: enc.tituloEncuesta,
                 description: enc.descripcion,
                 status: enc.estadoEncuesta,
