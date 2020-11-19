@@ -1,6 +1,7 @@
 const e = require('express');
 var encuestasBD = require('../models/encuestaBD');
-var LanzamientoEncuesta = require('../models/LanzamientoEncuesta.model')
+var userProfile = require('../models/userProfile.model');
+
 exports.getRespuestas = async function ()
 {
     try{
@@ -121,5 +122,42 @@ exports.updateEncuesta = async function (idEncuesta)
         return {message: "Estado de la encuesta actualizado con éxito"}
     }catch(e){
         throw Error("al actualizar el estado de la encuesta")
+    }
+}
+
+exports.createUser = async function (dataBody)
+{   
+    var newUser = userProfile(dataBody)
+    try{
+        newUser.save()
+        return ({message:"Perfil Usuario creado con éxito"})
+    }catch(e){
+        throw Error("al crear el usuario")
+    }
+}
+
+exports.getUser = async function (userId)
+{
+    try{
+        console.log("buscando user: "+userId)
+        var profile = await userProfile.findOne({idEmpresa: userId}, function(err, data){
+            return data
+        })
+        return profile
+    }catch(e){
+        throw Error("al buscar usuario")
+    }
+
+}
+
+exports.updateProfile = async function (idEmpresa, email, numTel, ciudad, zip, hist, mision, vision)
+{
+    try{
+        console.log("actualizando perfil: "+idEmpresa)
+        await userProfile.findOneAndUpdate({idEmpresa: idEmpresa},{$set:{email: email, numTel: numTel, ciudad: ciudad, zip: zip, hist: hist, mision: mision, vision: vision}})
+        return {message:"Perfil actualizado con éxito"}
+    }catch(e){
+        console.log(e)
+        throw Error("al actualizar el perfil")
     }
 }

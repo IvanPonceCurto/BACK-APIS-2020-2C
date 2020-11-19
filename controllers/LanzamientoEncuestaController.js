@@ -38,7 +38,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
         var lista=[]
         var MiddleManObject=JSON.parse(req.body.listaEmpresasLanzadas);
         MiddleManObject.map((element=>{
-            var objetoPush=new Object({_id: element._id,nombreEmpresa: element.nombreEmpresa})
+            var objetoPush=new Object({_id: element._id,idEmpresa: element.idEmpresa, nombreEmpresa: element.nombreEmpresa})
             lista.push(objetoPush)
         }))
      

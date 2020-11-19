@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Empresa = require('../models/Empresa.model');
+var userProfile = require('../models/userProfile.model')
 var {v4:uuidv4}=require('uuid')
 var bcrypt = require('bcryptjs');
 _this = this
@@ -47,9 +48,23 @@ exports.createEmpresa = async function (empresa) {
         responsable: empresa.responsable,
         timestamp:new Date()
     })
+    var profileUser = new userProfile({
+        idEmpresa: newEmpresa.idEmpresa,
+        nombreEmpresa: newEmpresa.nombreEmpresa,
+        razonSocial: newEmpresa.razonSocial,
+        email: "",
+        numTel: "",
+        ciudad: "",
+        localidad: "",
+        zip: "",
+        hist: "",
+        mision: "",
+        vision:""
+    })
     //Controller --> Service --> DAO (Le pega a la BDD) --> Schema de Mongo
     try {
         // Guardando la empresa 
+        var savedProfileUser = await profileUser.save();
         var savedUser = await newEmpresa.save();
     } catch (e) {
         // return a Error message describing the reason 

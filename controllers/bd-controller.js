@@ -32,8 +32,6 @@ exports.getRespuestaSingle = async function(req, res)
 exports.getRespuestaSingleSinResp = async function(req, res)
 {
     try{
-        console.log('ESTOY EN EL CONTROLLER')
-        console.log(req)
         let query = {userId: req.body.userId, status:{$ne: "completed"}};
         var result = await bdService.getRespuestaSingleSinResp(query)
         
@@ -228,4 +226,55 @@ exports.uploadFile = async function (req, res)
 		}
 		res.json({ok: true, msg: 'Files uploaded succesfully!', files: myUploadedFiles})
 	})
+}
+
+exports.createUser = async function (req, res)
+{
+    try{
+        let dataBody = {
+        userId: req.body.idEmpresa,
+        nombreUser: req.body.nombreEmpresa,
+        razSoc: req.body.razonSocial,
+        email: req.body.email,
+        numTel: req.body.numTel,
+        ciudad: req.body.ciudad,
+        localidad: req.body.localidad,
+        zip: req.body.zip,
+        hist: req.body.hist,
+        mision: req.body.mision,
+        vision: req.body.vision}
+        var results = await bdService.createUser(dataBody)
+        return res.status(200).send(results)
+    }catch(e){
+        return res.status(500).send(e)
+    }
+}
+
+exports.getUser = async function (req, res)
+{
+    try{
+        let idEmpresa = req.body.idEmpresa
+        var results = await bdService.getUser(idEmpresa)
+        return res.status(200).send(results)
+    }catch(e){
+        return res.status(500).send(e)
+    }
+}
+
+exports.updateProfile = async function (req, res)
+{
+    try{
+        let idEmpresa = req.body.idEmpresa
+        let email = req.body.email
+        let numTel = req.body.numTel
+        let ciudad = req.body.ciudad
+        let zip = req.body.zip
+        let hist = req.body.hist
+        let mision = req.body.mision
+        let vision = req.body.vision
+        var results = await bdService.updateProfile(idEmpresa, email, numTel, ciudad, zip, hist, mision, vision)
+        return res.status(200).send(results)
+    }catch(e){
+        return res.status(500).send(e)
+    }
 }
