@@ -12,7 +12,7 @@ var LanzamientoEncuestaSchema= new moongose.Schema({
     encuesta:Object,
     responsable:{},
     fecha:Date, 
-    fechaVencimiento:Date,
+    fechaVencimiento:String,
     listaEmpresasLanzadas:[]
     //FIJARSE SI SE PUEDE DEFINIR UN ARRAYLIST<EMPRESAS>
 },{collection:'lanzamientoEncuesta'})
