@@ -50,6 +50,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
         var LanzamientoEncuesta={
             idUsuario:req.body.idUsuario,
             idEncuesta:req.body.idEncuesta,
+            nombreLanzamiento:req.body.nombreLanzamiento,
             encuesta:await EncuestaService.getEncuestaById(req.body.idEncuesta),
             responsable:req.body.responsable,
             fecha:Date.now(),

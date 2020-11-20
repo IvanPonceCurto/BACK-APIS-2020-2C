@@ -10,6 +10,7 @@ exports.postEncuestasLanzamiento=async function(encuesta){
     var lanzar=new LanzamientoEncuesta({
         idUsuario:encuesta.idUsuario,
         idEncuesta:encuesta.idEncuesta,
+        nombreLanzamiento:encuesta.nombreLanzamiento,
         encuesta:encuesta.encuesta,
         responsable:encuesta.responsable,
         fecha:encuesta.fecha,

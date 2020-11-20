@@ -9,6 +9,7 @@ var LanzamientoEncuestaSchema= new moongose.Schema({
     //Aca creo el schema que va a tener la coleccion.
     idUsuario:String,
     idEncuesta:String,
+    nombreLanzamiento:String,
     encuesta:Object,
     responsable:{},
     fecha:Date, 
