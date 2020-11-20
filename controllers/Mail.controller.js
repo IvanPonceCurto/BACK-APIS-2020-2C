@@ -10,8 +10,8 @@ exports.sendEmail = async function (req, res, next){
         port:25,
         service: 'Gmail',
         auth: {
-            user: 'franciscofares23@gmail.com',//poner cuenta gmail
-            pass: 'aca va la contraseña'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
+            user: 'pruebapyme123@gmail.com',//poner cuenta gmail
+            pass: 'tpoapis123'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email

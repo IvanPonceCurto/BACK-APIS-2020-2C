@@ -122,10 +122,8 @@ exports.respondidas = async function (idEncuesta)
 {
     try{
         var res = await encuestasBD.aggregate([{$match: {_id: mongoose.Types.ObjectId(idEncuesta)}},{$project: {_id: 0, "questions.questions.value":1}},{$unwind: "$questions"},{$unwind: "$questions.questions"},
-        {$match:{"questions.questions.value": ""}},{$count: "cuenta"}])
-        var f = await encuestasBD.findById(idEncuesta)
-        let r = f.questions.total - res[0].cuenta
-        await encuestasBD.findOneAndUpdate({_id: idEncuesta},{$set:{answered:r}})
+        {$match:{"questions.questions.value": {$ne: ""}}},{$count: "cuenta"}])
+        await encuestasBD.findOneAndUpdate({_id: idEncuesta},{$set:{answered:res[0].cuenta}})
         return {message:"todo ok"}
     }catch(e){
         console.log(e)
