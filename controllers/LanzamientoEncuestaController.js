@@ -6,6 +6,7 @@ var EncuestaService = require ("../services/Encuesta.Service")
 var EmpresaService= require("../services/Empresa.Service");
 const cookieParser = require('cookie-parser');
 const { Mongoose } = require('mongoose');
+const { getRespuestaSingleSinResp } = require('../services/bd-services');
 
 _this = this;
 
@@ -60,8 +61,8 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
     try {
 
         var lanzamientoEncuesta = await LanzamientoEncuestaService.postEncuestasLanzamiento(LanzamientoEncuesta)
-
         var enc = await EncuestaService.getEncuestaById(lanzamientoEncuesta.idEncuesta)
+
         lanzamientoEncuesta.listaEmpresasLanzadas.map(elem =>{
             console.log(elem.preguntas)
             let auxMand = 0
@@ -78,7 +79,7 @@ exports.postLanzamientoEncuesta = async function (req, res, next) {
                 description: enc.descripcion,
                 status: enc.estadoEncuesta,
                 created: enc.created,
-                modified: enc.modified,
+                modified: lanzamientoEncuesta.fechaVencimiento,
                 questions: enc.preguntas,
                 total: enc.preguntas.total,
                 answered: 0,
@@ -139,6 +140,17 @@ exports.removeLanzamiento = async function (req, res, next) {
     }else{
     
         return res.status(400).json({status: 400, message:"debes pasar el idLanzamiento por header"})
+    }
+}
+
+exports.getLanzamientoById = async function (req, res)
+{
+    var idLanzamiento = req.body.id
+    try{
+        var results = await LanzamientoEncuestaService.getLanzamientoById(idLanzamiento)
+        return res.status(200).json(results)
+    }catch(e){
+        return res.status(400).json({status: 400, message: "error: "+e})
     }
 }
 

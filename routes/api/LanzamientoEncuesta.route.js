@@ -12,6 +12,7 @@ router.post('/newLanzarEncuesta', LanzamientoEncuestaController.postLanzamientoE
 router.get('/encuestasLanzadas',  LanzamientoEncuestaController.getEncuestasLanzadas)
 router.put('/encuestasLanzadas/update', LanzamientoEncuestaController.updateLanzamientoEncuesta)
 router.delete('/encuestasLanzadas/delete', LanzamientoEncuestaController.removeLanzamiento)
+router.post('/getLanzamientoById', LanzamientoEncuestaController.getLanzamientoById)
 
 // Export the Router
 module.exports = router;

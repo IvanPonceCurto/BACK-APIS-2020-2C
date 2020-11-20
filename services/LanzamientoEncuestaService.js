@@ -108,3 +108,14 @@ exports.insertRespuesta = async function (dataBody)
         throw Error("al insertar una respuesta")
     }
 };
+
+exports.getLanzamientoById = async function (id)
+{
+    try{
+        console.log("buscando por",id)
+        var results = await LanzamientoEncuesta.findById(id)
+        return results
+    }catch(e){
+        throw Error("al buscar un lanzamiento")
+    }
+}
