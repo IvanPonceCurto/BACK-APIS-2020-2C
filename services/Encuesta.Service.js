@@ -160,3 +160,14 @@ exports.getEncuestaById=async function(idEncuesta){
         throw new Error("Error al traer la encuesta por el id");
     }
 }
+
+exports.getPreguntasById=async function(idEncuesta){
+    console.log("El id de la encuesta por el que quiere buscar es: " , idEncuesta)
+    try{
+        var EncuestaDevolver= await Encuesta.findById(idEncuesta)
+        console.log(EncuestaDevolver)
+        return EncuestaDevolver.preguntas
+    }catch(e){
+        throw new Error("Error al traer la encuesta por el id");
+    }
+}

@@ -73,6 +73,17 @@ exports.createEncuesta = async function (req, res, next) {
     }
 }
 
+exports.getPreguntasById=async function (req,res){
+    var idEncuesta=req.body.id ? req.body.id:-1;
+    if(idEncuesta!=-1){
+        try{
+        var EncuestaReturn=await EncuestaService.getPreguntasById(idEncuesta);
+        return res.status(200).json({status:200,data:EncuestaReturn,message:"Encuesta recibida con exito"})
+        }catch(e){
+            return res.status(400).json({status:400,message:e.message})
+        }   
+    }
+}
 
 
 
